@@ -1,6 +1,4 @@
-#include <stdlib.h>
-#include <iostream>
-using namespace std;
+
 #include "Event.h"
 
 // Quelques conseils avant de commencer...
