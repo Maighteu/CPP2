@@ -46,5 +46,5 @@ int Time::getMinute() const
 }
 void Time::display() const
 {
-	cout<<endl<< "hour:"<< getHour<<"minute"<< getMinute<<endl;
+	cout<<endl<< "hour:"<< getHour<< endl<<"minute:"<< getMinute<<endl;
 }

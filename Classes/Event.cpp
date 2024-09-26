@@ -40,5 +40,5 @@ int Event::getCode()const
 }
 void Event::display()const
 {
-	cout<< getCode()<<endl<< getTitle();
+	cout<< endl<< getCode()<<endl<< getTitle()<<endl;
 }

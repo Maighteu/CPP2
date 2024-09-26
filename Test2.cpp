@@ -2,8 +2,8 @@
 #include <iostream>
 using namespace std;
 #include "Time.h"
-#include "Timing.h"
-#include "Event.h"
+#include "Classes/Timing.h"
+#include "Classes/Event.h"
 
 using namespace planning;
 

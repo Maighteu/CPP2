@@ -13,7 +13,7 @@ class Timing
 {
 	private:
 		char day[];
-		time_t start, duration;
+		Time start, duration;
 	public:
 		Timing();
 		~Timing();
