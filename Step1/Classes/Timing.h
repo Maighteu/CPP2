@@ -12,7 +12,7 @@ using namespace std;
 class Timing
 {
 	private:
-		char day[];
+		string day;
 		Time start, duration;
 	public:
 		Timing();
@@ -23,7 +23,7 @@ class Timing
 		const &char getDay()const;
 		Time getStart()const;
 		Time getDuration()const;
-		setDay (const char& day);
+		setDay (const string& day);
 		setStart(const Time& s);
 		setDuration(const Time& D);
 
