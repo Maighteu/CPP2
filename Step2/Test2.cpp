@@ -167,60 +167,60 @@ void Essai2()
 // /*******************************************************************************************************/
 // /*** Tests de la classe Event (Agregation par reference d'un objet Timing) *****************************/
 // /*******************************************************************************************************/
-// void Essai3()
-// {
-//   cout << endl << "(1) ***** Test constructeur par defaut + display *******************************" << endl;
-//   {
-//     Event event;
-//     event.display();
-//     cout << endl;
-//   } 
+void Essai3()
+{
+  cout << endl << "(1) ***** Test constructeur par defaut + display *******************************" << endl;
+  {
+    Event event;
+    event.display();
+    cout << endl;
+  } 
 
-//   cout << endl << "(2) ***** Test des setters et getters ******************************************" << endl;
-//   {
-//     Event event;
-//     event.setCode(1);
-//     event.setTitle("Resto avec Patrick (Merci Patrick :)");
-//     event.setTiming(Timing("Mardi",Time(20,0),Time(180)));
-//     event.display();
-//     cout << endl;
-//     cout << "Code   = " << event.getCode() << endl;
-//     cout << "Title  = " << event.getTitle() << endl;
-//     cout << "Timing = ";
-//     event.getTiming().display();
-//     cout << endl;
-//   }
+  cout << endl << "(2) ***** Test des setters et getters ******************************************" << endl;
+  {
+    Event event;
+    event.setCode(1);
+    event.setTitle("Resto avec Patrick (Merci Patrick :)");
+    event.setTiming(Timing("Mardi",Time(20,0),Time(180)));
+    event.display();
+    cout << endl;
+    cout << "Code   = " << event.getCode() << endl;
+    cout << "Title  = " << event.getTitle() << endl;
+    cout << "Timing = ";
+    event.getTiming()->display();
+    cout << endl;
+  }
 
-//   cout << endl << "(3) ***** Test du constructeur d'initialisation ********************************" << endl;
-//   {
-//     Event event(2,"Cinema avec les potos");
-//     event.setTiming(Timing("Vendredi",Time(19,30),Time(150)));
-//     event.display();
-//     cout << endl;
-//   }
+  cout << endl << "(3) ***** Test du constructeur d'initialisation ********************************" << endl;
+  {
+    Event event(2,"Cinema avec les potos");
+    event->setTiming(Timing("Vendredi",Time(19,30),Time(150)));
+    event.display();
+    cout << endl;
+  }
 
-//   cout << endl << "(4) ***** Test du constructeur de copie ****************************************" << endl;
-//   {
-//     Event event1(1,"Labo C++");
-//     event1.setTiming(Timing("Lundi",Time(8,20),Time(90)));
-//     cout << "event1 (AVANT) : ";
-//     event1.display();
-//     cout << endl;
-//     {   
-//       Event event2(event1);
-//       cout << "event2 : ";
-//       event2.display();
-//       cout << endl;
-//       event2.setTiming(Timing("Jeudi",Time(13,30),Time(90)));
-//       cout << "event2 : ";
-//       event2.display();
-//       cout << endl;
-//     } // de nouveau, les {} assurent que event2 sera detruit avant la suite
-//     cout << "event1 (APRES) : ";
-//     event1.display();
-//     cout << endl << endl;
-//   }
-// }
+  cout << endl << "(4) ***** Test du constructeur de copie ****************************************" << endl;
+  {
+    Event event1(1,"Labo C++");
+    event1->setTiming(Timing("Lundi",Time(8,20),Time(90)));
+    cout << "event1 (AVANT) : ";
+    event1.display();
+    cout << endl;
+    {   
+      Event event2(event1);
+      cout << "event2 : ";
+      event2.display();
+      cout << endl;
+      event2.setTiming(Timing("Jeudi",Time(13,30),Time(90)));
+      cout << "event2 : ";
+      event2.display();
+      cout << endl;
+    } // de nouveau, les {} assurent que event2 sera detruit avant la suite
+    cout << "event1 (APRES) : ";
+    event1.display();
+    cout << endl << endl;
+  }
+}
 
 // /*******************************************************************************************************/
 // /*** Tests des variables statiques utiles **************************************************************/

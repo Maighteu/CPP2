@@ -21,6 +21,7 @@ Event::Event(const Event& i)
 	setCode(i.getCode());
 
 }
+
 void Event::setTitle(const char*t)
 {
 	title = new char[strlen(t)+1];
@@ -44,4 +45,13 @@ void Event::display()const
 	cout<< endl<< getCode()<<endl<< getTitle()<<endl ;
 
 	timing->display();
+}
+
+void Event::setTiming(Timing* tim)
+{
+ timing= tim;
+}
+const Timing* Event::getTiming()const
+{
+	return *timing;
 }

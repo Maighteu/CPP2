@@ -23,9 +23,15 @@ class Event
 		Event(const Event &i);
 		void setTitle(const char* t);
 		void setCode(int c);
+
+
+		void setTiming(Timing* tim);
+		const Timing* getTiming()const;
+		
 		const char* getTitle()const;
 		int getCode()const;
 		void display()const;
 };
 
 #endif
+
