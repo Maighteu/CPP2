@@ -11,7 +11,7 @@ int  Menu();
 void Essai1();
 void Essai2();
 void Essai3();
-// void Essai4();
+void Essai4();
 
 int main(int argc,char* argv[])
 {
@@ -27,7 +27,7 @@ int main(int argc,char* argv[])
       case 1 : Essai1(); break;
       case 2 : Essai2(); break;
       case 3 : Essai3(); break;
-      // case 4 : Essai4(); break;
+      case 4 : Essai4(); break;
       default : fini = true ; break;
     }
   }
@@ -228,49 +228,49 @@ void Essai3()
 // /*******************************************************************************************************/
 // /*** Tests des variables statiques utiles **************************************************************/
 // /*******************************************************************************************************/
-// void Essai4()
-// {
-//   cout << endl << "(1) ***** Tests de base des jours de la semaine ********************************" << endl;
-//   cout << "Premier jour de la semaine : " << Timing::MONDAY << endl;
-//   // ne pas oublier les autres jours de la semaine...
-//   cout << "Dernier jour de la semaine : " << Timing::SUNDAY << endl << endl;
+void Essai4()
+{
+  cout << endl << "(1) ***** Tests de base des jours de la semaine ********************************" << endl;
+  cout << "Premier jour de la semaine : " << Timing::MONDAY << endl;
+  // ne pas oublier les autres jours de la semaine...
+  cout << "Dernier jour de la semaine : " << Timing::SUNDAY << endl << endl;
   
-//   cout << endl << "(2) ***** Tests de base de la variable Event::currentCode **********************" << endl;
-//   cout << "Event::currentCode = " << Event::currentCode << endl;
-//   Event::currentCode++;
-//   cout << "Event::currentCode = " << Event::currentCode << endl << endl;
+  cout << endl << "(2) ***** Tests de base de la variable Event::currentCode **********************" << endl;
+  cout << "Event::currentCode = " << Event::currentCode << endl;
+  Event::currentCode++;
+  cout << "Event::currentCode = " << Event::currentCode << endl << endl;
 
-//   cout << endl << "(3) ***** Creation d'evenements ************************************************" << endl;
-//   Event::currentCode = 1;
+  cout << endl << "(3) ***** Creation d'evenements ************************************************" << endl;
+  Event::currentCode = 1;
 
-//   Event e1(Event::currentCode,"Theorie C++");
-//   e1.setTiming(Timing(Timing::TUESDAY,Time(8,20),Time(90)));
-//   Event::currentCode++;
-//   cout << "e1 : ";
-//   e1.display();
-//   cout << endl;
-//   cout << "Event::currentCode = " << Event::currentCode << endl;
-//   cout << "e1.currentCode = " << e1.currentCode << endl << endl;
+  Event e1(Event::currentCode,"Theorie C++");
+  e1.setTiming(Timing(Timing::TUESDAY,Time(8,20),Time(90)));
+  Event::currentCode++;
+  cout << "e1 : ";
+  e1.display();
+  cout << endl;
+  cout << "Event::currentCode = " << Event::currentCode << endl;
+  cout << "e1.currentCode = " << e1.currentCode << endl << endl;
 
-//   Event e2(Event::currentCode,"Labo C++");
-//   e2.setTiming(Timing(Timing::WEDNESDAY,Time(13,30),Time(120)));
-//   e2.currentCode++;
-//   cout << "e2 : ";
-//   e2.display();
-//   cout << endl;
-//   cout << "Event::currentCode = " << Event::currentCode << endl;
-//   cout << "e1.currentCode = " << e1.currentCode << endl;
-//   cout << "e2.currentCode = " << e2.currentCode << endl << endl;
+  Event e2(Event::currentCode,"Labo C++");
+  e2.setTiming(Timing(Timing::WEDNESDAY,Time(13,30),Time(120)));
+  e2.currentCode++;
+  cout << "e2 : ";
+  e2.display();
+  cout << endl;
+  cout << "Event::currentCode = " << Event::currentCode << endl;
+  cout << "e1.currentCode = " << e1.currentCode << endl;
+  cout << "e2.currentCode = " << e2.currentCode << endl << endl;
 
-//   Event e3(Event::currentCode,"Labo UNIX");
-//   e3.setTiming(Timing(Timing::THURSDAY,Time(10,30),Time(120)));
-//   Event::currentCode++;
-//   cout << "e3 : ";
-//   e3.display();
-//   cout << endl;
-//   cout << "Event::currentCode = " << Event::currentCode << endl;
-//   cout << "e1.currentCode = " << e1.currentCode << endl;
-//   cout << "e2.currentCode = " << e2.currentCode << endl;
-//   cout << "e3.currentCode = " << e3.currentCode << endl << endl;
-// }
+  Event e3(Event::currentCode,"Labo UNIX");
+  e3.setTiming(Timing(Timing::THURSDAY,Time(10,30),Time(120)));
+  Event::currentCode++;
+  cout << "e3 : ";
+  e3.display();
+  cout << endl;
+  cout << "Event::currentCode = " << Event::currentCode << endl;
+  cout << "e1.currentCode = " << e1.currentCode << endl;
+  cout << "e2.currentCode = " << e2.currentCode << endl;
+  cout << "e3.currentCode = " << e3.currentCode << endl << endl;
+}
 

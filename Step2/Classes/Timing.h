@@ -13,13 +13,13 @@ class Timing
 {
 
 	public:
-		// static const Timing MONDAY;
-		// static const Timing TUESDAY;
-		// static const Timing WEDNESDAY;
-		// static const Timing THURSDAY;
-		// static const Timing FRIDAY;
-		// static const Timing SATURDAY;
-		// static const Timing SUNDAY;
+		static const string MONDAY;
+		static const string TUESDAY;
+		static const string WEDNESDAY;
+		static const string THURSDAY;
+		static const string FRIDAY;
+		static const string SATURDAY;
+		static const string SUNDAY;
 		Timing();
 		~Timing();
 		Timing(const Timing& i);

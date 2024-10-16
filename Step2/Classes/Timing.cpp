@@ -1,13 +1,13 @@
 #include "Time.h"
 #include "Timing.h"
 
-// const String Timing::MONDAY("Lundi");
-// const String Timing::TUESDAY("Mardi");
-// const String Timing::WEDNESDAY("Mercredi");
-// const String Timing::THURSDAY("Jeudi");
-// const String Timing::FRIDAY("Vendredi");
-// const String Timing::SATURDAY("Samedi");
-// const String Timing::SUNDAY("Dimanche");
+ const string Timing::MONDAY("Lundi");
+ const string Timing::TUESDAY("Mardi");
+ const string Timing::WEDNESDAY("Mercredi");
+ const string Timing::THURSDAY("Jeudi");
+ const string Timing::FRIDAY("Vendredi");
+ const string Timing::SATURDAY("Samedi");
+ const string Timing::SUNDAY("Dimanche");
 		
 Timing::Timing()
 {

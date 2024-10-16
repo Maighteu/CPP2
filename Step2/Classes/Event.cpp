@@ -1,6 +1,6 @@
 #include "Event.h"
 
-
+int Event::currentCode =1;
 Event::Event()
 {
 	setTitle("default");

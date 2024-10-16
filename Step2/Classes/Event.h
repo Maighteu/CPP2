@@ -7,16 +7,18 @@
 #include "Timing.h"
 
 using namespace std;
-static int currentCode = 1; 
+
 
 class Event
 {
 	private:
+
 		Timing* timing;
 		char* title;
 		int code;
 
 	public:
+		static int currentCode; 
 		Event();
 		~Event();
 		Event(int c,const char* t);
