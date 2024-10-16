@@ -19,7 +19,6 @@ Time::~Time()
 // }
 Time::Time(int h, int m)
 {
-	printf("//hour minutes//");
 	setHour(h);
 	setMinute(m);
 }
@@ -50,5 +49,8 @@ int Time::getMinute() const
 }
 void Time::display() const
 {
-	cout<<endl<< "hour:"<< getHour()<< endl<<"minute:"<< getMinute()<<endl;
+	cout<<getHour()<<"h";
+	if (getMinute() <10) cout<<"0";
+
+	cout<< getMinute()<<endl;
 }

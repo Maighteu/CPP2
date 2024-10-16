@@ -5,6 +5,7 @@ Event::Event()
 {
 	setTitle("default");
 	setCode(1);
+	//setTiming(nullptr);
 }
 Event::~Event()
 {
@@ -19,7 +20,7 @@ Event::Event(const Event& i)
 {
 	setTitle(i.getTitle());
 	setCode(i.getCode());
-
+	timing = i.timing;
 }
 
 void Event::setTitle(const char*t)
@@ -42,16 +43,21 @@ int Event::getCode()const
 }
 void Event::display()const
 {
-	cout<< endl<< getCode()<<endl<< getTitle()<<endl ;
-
-	timing->display();
+	cout<< endl<< "Code: "<<getCode()<<endl<<"Titre: "<< getTitle()<<endl;
+	
+	if (timing)	timing->display();
 }
+// void Event::setTiming( Timing* tim)
+// {
+//  timing= new Timing(*tim);
+// }
 
-void Event::setTiming(Timing* tim)
-{
- timing= tim;
-}
-const Timing* Event::getTiming()const
+ Timing& Event::getTiming()const
 {
 	return *timing;
+}
+
+void Event::setTiming(Timing tim)
+{
+	timing = &tim;
 }

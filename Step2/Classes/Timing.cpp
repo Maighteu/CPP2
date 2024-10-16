@@ -32,7 +32,6 @@ Timing::Timing(const string day, Time s, Time D)
 	setDuration (D);
 }
 
-
 void Timing::setDay(const string d)
 {
 	day= d;
@@ -71,8 +70,8 @@ Time Timing::getDuration() const
 void Timing::display() const
 {
 cout<<endl<<getDay()<<endl;
-cout<<"start:"<<endl;
+cout<<"start:";
 start.display();
-cout<<"duration:"<<endl;
+cout<<"duration:";
 duration.display();
 }

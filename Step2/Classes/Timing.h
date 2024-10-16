@@ -34,6 +34,7 @@ class Timing
 		void setStart(const Time s);
 		void setDuration(const Time D);
 
+
 		void display()const;
 	private:
 		string day="default";

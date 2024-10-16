@@ -10,7 +10,7 @@ using namespace std;
 int  Menu();
 void Essai1();
 void Essai2();
-// void Essai3();
+void Essai3();
 // void Essai4();
 
 int main(int argc,char* argv[])
@@ -26,7 +26,7 @@ int main(int argc,char* argv[])
     {
       case 1 : Essai1(); break;
       case 2 : Essai2(); break;
-      // case 3 : Essai3(); break;
+      case 3 : Essai3(); break;
       // case 4 : Essai4(); break;
       default : fini = true ; break;
     }
@@ -180,21 +180,24 @@ void Essai3()
   {
     Event event;
     event.setCode(1);
+
     event.setTitle("Resto avec Patrick (Merci Patrick :)");
     event.setTiming(Timing("Mardi",Time(20,0),Time(180)));
+
     event.display();
+
     cout << endl;
     cout << "Code   = " << event.getCode() << endl;
     cout << "Title  = " << event.getTitle() << endl;
     cout << "Timing = ";
-    event.getTiming()->display();
+    event.getTiming().display();
     cout << endl;
   }
 
   cout << endl << "(3) ***** Test du constructeur d'initialisation ********************************" << endl;
   {
     Event event(2,"Cinema avec les potos");
-    event->setTiming(Timing("Vendredi",Time(19,30),Time(150)));
+    event.setTiming(Timing("Vendredi",Time(19,30),Time(150)));
     event.display();
     cout << endl;
   }
@@ -202,7 +205,7 @@ void Essai3()
   cout << endl << "(4) ***** Test du constructeur de copie ****************************************" << endl;
   {
     Event event1(1,"Labo C++");
-    event1->setTiming(Timing("Lundi",Time(8,20),Time(90)));
+    event1.setTiming(Timing("Lundi",Time(8,20),Time(90)));
     cout << "event1 (AVANT) : ";
     event1.display();
     cout << endl;
