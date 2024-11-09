@@ -1,7 +1,7 @@
 LIB=./Classes/
 
-Test2:	Test2.cpp $(LIB)Timing.o $(LIB)Event.o $(LIB)Time.o 
-		g++ Test2.cpp $(LIB)Timing.o $(LIB)Event.o $(LIB)Time.o  -o Test2
+Test3:	Test3.cpp $(LIB)Timing.o $(LIB)Event.o $(LIB)Time.o 
+		g++ Test3.cpp $(LIB)Timing.o $(LIB)Event.o $(LIB)Time.o  -o Test3
 
 $(LIB)Event.o:	$(LIB)Event.cpp $(LIB)Event.h
 		g++ $(LIB)Event.cpp -c -o $(LIB)Event.o

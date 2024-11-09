@@ -5,12 +5,13 @@ Event::Event()
 {
 	setTitle("default");
 	setCode(1);
-	//setTiming(nullptr);
+	timing = nullptr;
 }
 Event::~Event()
 {
 	if(title) delete title;
-}
+	//if (timing) delete timing; si présent double free
+} 
 Event::Event(int c,const char* t)
 {
 	setTitle(t);
@@ -20,7 +21,10 @@ Event::Event(const Event& i)
 {
 	setTitle(i.getTitle());
 	setCode(i.getCode());
-	timing = i.timing;
+	if (i.timing)
+	{
+		timing = i.timing;
+	}
 }
 
 void Event::setTitle(const char*t)
@@ -44,8 +48,11 @@ int Event::getCode()const
 void Event::display()const
 {
 	cout<< endl<< "Code: "<<getCode()<<endl<<"Titre: "<< getTitle()<<endl;
-	
-	if (timing)	timing->display();
+	if (timing)	
+	{
+		printf("\naffiche timing\n");
+		timing->display();
+	}
 }
 // void Event::setTiming( Timing* tim)
 // {

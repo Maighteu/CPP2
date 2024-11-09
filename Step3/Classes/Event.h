@@ -8,7 +8,7 @@
 
 using namespace std;
 
-
+namespace planning{
 class Event
 {
 	private:
@@ -33,7 +33,9 @@ class Event
 		const char* getTitle()const;
 		int getCode()const;
 		void display()const;
-};
+		Event& operator=(const Event& i);
 
+};
+}
 #endif
 

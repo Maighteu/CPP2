@@ -1,5 +1,6 @@
 #include "Time.h"
 
+namespace planning{
 
 Time::Time()
 {
@@ -12,11 +13,11 @@ Time::~Time()
 
 }
 
-// Time::Time(Time& i)
-// {
-// 	setHour(i.getHour());
-// 	setMinute(i.getMinute());
-// }
+Time::Time(const Time& i)
+{
+	setHour(i.getHour());
+	setMinute(i.getMinute());
+}
 Time::Time(int h, int m)
 {
 	setHour(h);
@@ -53,4 +54,144 @@ void Time::display() const
 	if (getMinute() <10) cout<<"0";
 
 	cout<< getMinute()<<endl;
+}
+Time& Time::operator=(const Time& i)
+{
+	setHour(i.getHour());
+	setMinute(i.getMinute());
+	return (*this);
+}
+Time Time::operator+(int m)
+{
+	Time t(*this);
+	int h;
+	h = (m /60);
+	m = (m % 60);
+	t.setMinute(getMinute()+ m);
+	t.setHour(getHour()+h);
+
+	if(t.getMinute()>=60)
+	{
+		t.setMinute(t.getMinute()-60);
+		t.setHour(t.getHour()+1);
+	}
+	if (t.getHour()>=24)
+	{
+		t.setHour(t.getHour()-24);
+
+	}
+	return t;
+
+}
+Time Time::operator+(const Time& temp) 
+	{	
+		Time t(*this);
+	
+	t.setMinute(getMinute()+ temp.minute);
+	t.setHour(getHour()+temp.hour);
+
+	if(t.getMinute()>=60)
+	{
+		t.setMinute(t.getMinute()-60);
+		t.setHour(t.getHour()+1);
+	}
+	if (t.getHour()>24)
+	{
+		t.setHour(t.getHour()-24);
+
+	}
+ 
+		return t;
+	}
+
+Time operator+(int min, Time t) 
+{	
+	return t + min;
+}
+
+
+Time Time::operator-(int m)
+{
+	Time t(*this);
+	int h;
+	h = (m /60);
+	m = (m % 60);
+	t.setMinute(getMinute()- m);
+	t.setHour(getHour()- h);
+	if(t.getMinute()<=0)
+	{
+		t.setMinute(t.getMinute()+60);
+		t.setHour(t.getHour()-1);
+	}
+	if (t.getHour()<=0)
+	{
+		t.setHour(t.getHour()+24);
+	}
+
+	return t;
+
+}
+Time Time::operator-(const Time& temp) 
+{	
+	Time t(*this);
+
+	t.setMinute(getMinute()- temp.minute);
+	t.setHour(getHour()- temp.hour);
+
+	if(t.getMinute()<=0)
+	{
+		t.setMinute(t.getMinute()+60);
+		t.setHour(t.getHour()-1);
+	}
+	if (t.getHour()<=0)
+	{
+		t.setHour(t.getHour()+24);
+
+	}
+ 
+	return t;
+
+}
+Time operator-(int min, Time t) 
+{	
+	Time temp;
+ 
+		temp.setHour(min /60);
+		temp.setMinute(min%60);
+ 
+		temp.setHour(temp.getHour() - t.getHour());
+		temp.setMinute(temp.getMinute() - t.getMinute());
+ 
+		if (temp.getMinute() < 0)
+		{
+			temp.setMinute(temp.getMinute() + 60);
+			temp.setHour(temp.getHour() - 1);
+		}
+ 
+		if (temp.getHour() < 0)
+		{
+			temp.setHour(temp.hour + 24);
+		}
+ 
+		return temp;
+}
+bool Time::operator==(const Time& i)
+{
+	if( (getHour() == i.getHour()) && (getMinute() == i.getMinute()) ) return true;
+	return false;
+}
+bool Time::operator<(const Time& i)
+{
+
+	if(getHour() < i.getHour()) return true;
+	if( getMinute() < i.getMinute() ) return true;
+	return false;
+}
+bool Time::operator>(const Time& i)
+{
+
+	if(getHour() > i.getHour()) 
+	if( getMinute() > i.getMinute() ) return true;
+	return false;
+}
 }

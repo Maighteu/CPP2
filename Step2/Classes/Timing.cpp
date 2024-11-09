@@ -69,7 +69,9 @@ Time Timing::getDuration() const
 
 void Timing::display() const
 {
+
 cout<<endl<<getDay()<<endl;
+printf("\ntiming here\n");
 cout<<"start:";
 start.display();
 cout<<"duration:";

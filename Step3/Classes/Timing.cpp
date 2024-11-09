@@ -1,6 +1,6 @@
 #include "Time.h"
 #include "Timing.h"
-
+namespace planning{
  const string Timing::MONDAY("Lundi");
  const string Timing::TUESDAY("Mardi");
  const string Timing::WEDNESDAY("Mercredi");
@@ -69,9 +69,12 @@ Time Timing::getDuration() const
 
 void Timing::display() const
 {
+
 cout<<endl<<getDay()<<endl;
+printf("\ntiming here\n");
 cout<<"start:";
 start.display();
 cout<<"duration:";
 duration.display();
+}
 }

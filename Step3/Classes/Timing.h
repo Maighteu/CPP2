@@ -9,6 +9,7 @@
 #include "Time.h"
 
 using namespace std;
+namespace planning{
 class Timing
 {
 
@@ -41,4 +42,5 @@ class Timing
 		Time start, duration;
 
 };
+}
 #endif
