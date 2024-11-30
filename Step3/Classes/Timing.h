@@ -37,6 +37,10 @@ class Timing
 
 
 		void display()const;
+
+		bool operator==(const Timing& i);
+		bool operator<(const Timing& i);
+		bool operator>(const Timing& i);
 	private:
 		string day="default";
 		Time start, duration;

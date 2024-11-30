@@ -15,16 +15,19 @@ Timing::Timing()
 	setStart(Time());
 	setDuration (Time());
 }
+
 Timing::Timing(const Timing& i)
 {
 	setDay(i.getDay());
 	setStart(i.getStart());
 	setDuration (i.getDuration());
 }
+
 Timing::~Timing()
 {
 
 }
+
 Timing::Timing(const string day, Time s, Time D)
 {
 	setDay(day);
@@ -69,12 +72,35 @@ Time Timing::getDuration() const
 
 void Timing::display() const
 {
-
 cout<<endl<<getDay()<<endl;
 printf("\ntiming here\n");
 cout<<"start:";
 start.display();
 cout<<"duration:";
 duration.display();
+}	
+
+
+bool Timing::operator==(const Timing& i)
+{
+	if( (getDay()==i.getDay()) &&(getStart() == i.getStart()) && (getDuration() == i.getDuration()) ) return true;
+	return false;
+}
+
+bool Timing::operator<(const Timing& i)
+{
+	if(getDay() < i.getDay()) return true;
+	if(getStart() < i.getStart()) return true;
+	if( getDuration() < i.getDuration() ) return true;
+	return false;
+}
+
+bool Timing::operator>(const Timing& i)
+{
+	if(getDay() > i.getDay()) return true;
+	if(getStart() > i.getStart()) return true;
+	if( getDuration() > i.getDuration() ) return true;
+	return false;
+	
 }
 }

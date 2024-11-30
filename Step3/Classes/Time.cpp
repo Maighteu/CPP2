@@ -175,11 +175,14 @@ Time operator-(int min, Time t)
  
 		return temp;
 }
+
+
 bool Time::operator==(const Time& i)
 {
 	if( (getHour() == i.getHour()) && (getMinute() == i.getMinute()) ) return true;
 	return false;
 }
+
 bool Time::operator<(const Time& i)
 {
 
@@ -187,11 +190,63 @@ bool Time::operator<(const Time& i)
 	if( getMinute() < i.getMinute() ) return true;
 	return false;
 }
+
 bool Time::operator>(const Time& i)
 {
 
 	if(getHour() > i.getHour()) 
 	if( getMinute() > i.getMinute() ) return true;
 	return false;
+}
+
+ostream& operator<<(ostream& s,const Time& i)
+{
+	s<<i.getHour()<<"H"<<i.getMinute();
+	return s;
+}
+
+istream& operator>>(istream& s, Time& i)
+  {
+  	string c, temph, tempm;
+    int h,m;
+
+    cout<<endl<<"inserer heure au format xxhxx: ";
+    s >> c;
+    temph = c.substr(0,2);
+    h = stoi(temph);
+    tempm = c.substr(3,2);
+    m = stoi(tempm);
+
+  	i.setHour(h);
+ 	i.setMinute(m);
+    return s;
+}
+
+
+Time Time::operator++(int )
+{
+	Time t(*this);
+	(*this)= (*this) +30;
+	return t;
+}
+
+Time Time::operator++()
+{
+ 	(*this)= (*this) +30;
+ 	return (*this);
+}
+
+Time Time::operator--(int )
+{
+	Time t(*this);
+	(*this)= (*this) -30;
+	return t;
+
+}
+
+Time Time::operator--()
+{
+ 	(*this)= (*this) -30;
+ 	return (*this);
 }
 }

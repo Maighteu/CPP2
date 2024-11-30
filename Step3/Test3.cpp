@@ -12,8 +12,8 @@ void Essai1();
 void Essai2();
 void Essai3();
 void Essai4();
-// void Essai5();
-// void Essai6();
+void Essai5();
+void Essai6();
 // void Essai7();
 
 int main(int argc,char* argv[])
@@ -31,8 +31,8 @@ int main(int argc,char* argv[])
       case 2 : Essai2(); break;
       case 3 : Essai3(); break;
       case 4 : Essai4(); break;
-      // case 5 : Essai5(); break;
-      // case 6 : Essai6(); break;
+      case 5 : Essai5(); break;
+      case 6 : Essai6(); break;
       // case 7 : Essai7(); break;
       default : fini = true ; break;
     }
@@ -242,102 +242,102 @@ void Essai4()
 // /*******************************************************************************************************/
 // /*** Test des operateurs << et >> de la classe Time ****************************************************/
 // /*******************************************************************************************************/
-// void Essai5()
-// {
-//   cout << "**********************************************************************" << endl;
-//   cout << "********* Test des operateurs << et >> de la classe Time *************" << endl;
-//   cout << "**********************************************************************" << endl;
-//   Time h;
-//   cout << "Saisissez une heure : ";
-//   cin >> h;
-//   cout << endl << "Voici l'heure que vous avez encodee : " << h << endl;
-//   cout << endl;
-// }
+void Essai5()
+{
+  cout << "**********************************************************************" << endl;
+  cout << "********* Test des operateurs << et >> de la classe Time *************" << endl;
+  cout << "**********************************************************************" << endl;
+  Time h;
+  cout << "Saisissez une heure : ";
+  cin >> h;
+  cout << endl << "Voici l'heure que vous avez encodee : " << h << endl;
+  cout << endl;
+}
 
 // /*******************************************************************************************************/
 // /*** Tests des operateurs de pre/post in(de)crementation de la classe Time *****************************/
 // *****************************************************************************************************
-// void Essai6()
-// {
-//   cout << "**********************************************************************" << endl;
-//   cout << "(1) ***** Test de l'operateur de pre-incrementation ******************" << endl;
-//   cout << "**********************************************************************" << endl;
-//   Time h1(8,50);
-//   cout << "h1   : " << h1 << endl;
-//   cout << "++h1 : " << ++h1 << endl;  // Si tout va bien, h1 est incremente avant d'etre affiche !
-//   cout << "h1   : " << h1 << endl << endl;
+void Essai6()
+{
+  cout << "**********************************************************************" << endl;
+  cout << "(1) ***** Test de l'operateur de pre-incrementation ******************" << endl;
+  cout << "**********************************************************************" << endl;
+  Time h1(8,50);
+  cout << "h1   : " << h1 << endl;
+  cout << "++h1 : " << ++h1 << endl;  // Si tout va bien, h1 est incremente avant d'etre affiche !
+  cout << "h1   : " << h1 << endl << endl;
 
-//   cout << "**********************************************************************" << endl;
-//   cout << "(2) ***** Test de l'operateur de post-incrementation *****************" << endl;
-//   cout << "**********************************************************************" << endl;
-//   Time h2(14,40);
-//   cout << "h2   : " << h2 << endl;
-//   cout << "h2++ : " << h2++ << endl;  // Si tout va bien, h2 est incremente apres avoir ete affiche !
-//   cout << "h2   : " << h2 << endl << endl;
+  cout << "**********************************************************************" << endl;
+  cout << "(2) ***** Test de l'operateur de post-incrementation *****************" << endl;
+  cout << "**********************************************************************" << endl;
+  Time h2(14,40);
+  cout << "h2   : " << h2 << endl;
+  cout << "h2++ : " << h2++ << endl;  // Si tout va bien, h2 est incremente apres avoir ete affiche !
+  cout << "h2   : " << h2 << endl << endl;
 
-//   cout << "**********************************************************************" << endl;
-//   cout << "(3) ***** Test de l'operateur de pre-decrementation ******************" << endl;
-//   cout << "**********************************************************************" << endl;
-//   Time h3(10,20);
-//   cout << "h3   : " << h3 << endl;
-//   cout << "--h3 : " << --h3 << endl;  // Si tout va bien, h3 est decremente avant d'etre affiche !
-//   cout << "h3   : " << h3 << endl << endl;
+  cout << "**********************************************************************" << endl;
+  cout << "(3) ***** Test de l'operateur de pre-decrementation ******************" << endl;
+  cout << "**********************************************************************" << endl;
+  Time h3(10,20);
+  cout << "h3   : " << h3 << endl;
+  cout << "--h3 : " << --h3 << endl;  // Si tout va bien, h3 est decremente avant d'etre affiche !
+  cout << "h3   : " << h3 << endl << endl;
 
-//   cout << "**********************************************************************" << endl;
-//   cout << "(4) ***** Test de l'operateur de post-decrementation *****************" << endl;
-//   cout << "**********************************************************************" << endl;
-//   Time h4(17,10);
-//   cout << "h4   : " << h4 << endl;
-//   cout << "h4-- : " << h4-- << endl;  // Si tout va bien, h4 est decremente apres avoir ete affiche !
-//   cout << "h4   : " << h4 << endl << endl;
-// }
+  cout << "**********************************************************************" << endl;
+  cout << "(4) ***** Test de l'operateur de post-decrementation *****************" << endl;
+  cout << "**********************************************************************" << endl;
+  Time h4(17,10);
+  cout << "h4   : " << h4 << endl;
+  cout << "h4-- : " << h4-- << endl;  // Si tout va bien, h4 est decremente apres avoir ete affiche !
+  cout << "h4   : " << h4 << endl << endl;
+}
 
 // /*******************************************************************************************************/
 // /*** Test des operateurs < > == de la classe Timing ****************************************************/
 // /*******************************************************************************************************/
-// void Essai7()
-// {
-//   cout << "**********************************************************************" << endl;
-//   cout << "********* Test des operateurs < > == de la classe Timing *************" << endl;
-//   cout << "**********************************************************************" << endl;
-//   Timing ref(Timing::WEDNESDAY,Time(10,0),Time(2,0));
-//   cout << "ref : ";
-//   ref.display();
-//   cout << endl << endl;
+void Essai7()
+{
+  cout << "**********************************************************************" << endl;
+  cout << "********* Test des operateurs < > == de la classe Timing *************" << endl;
+  cout << "**********************************************************************" << endl;
+  Timing ref(Timing::WEDNESDAY,Time(10,0),Time(2,0));
+  cout << "ref : ";
+  ref.display();
+  cout << endl << endl;
 
-//   Timing h1(Timing::FRIDAY,Time(9,0),Time(1,0));
-//   cout << "h1  : ";
-//   h1.display();
-//   cout << endl;
-//   if (h1 < ref) cout << "h1 < ref" << endl;
-//   if (h1 > ref) cout << "h1 > ref" << endl ;
-//   if (h1 == ref) cout << "h1 == ref" << endl ;
-//   cout << endl;
+  Timing h1(Timing::FRIDAY,Time(9,0),Time(1,0));
+  cout << "h1  : ";
+  h1.display();
+  cout << endl;
+  if (h1 < ref) cout << "h1 < ref" << endl;
+  if (h1 > ref) cout << "h1 > ref" << endl ;
+  if (h1 == ref) cout << "h1 == ref" << endl ;
+  cout << endl;
 
-//   Timing h2(Timing::WEDNESDAY,Time(9,0),Time(2,0));
-//   cout << "h2  : ";
-//   h2.display();
-//   cout << endl;
-//   if (h2 < ref) cout << "h2 < ref" << endl;
-//   if (h2 > ref) cout << "h2 > ref" << endl;
-//   if (h2 == ref) cout << "h2 == ref" << endl;
-//   cout << endl;
+  Timing h2(Timing::WEDNESDAY,Time(9,0),Time(2,0));
+  cout << "h2  : ";
+  h2.display();
+  cout << endl;
+  if (h2 < ref) cout << "h2 < ref" << endl;
+  if (h2 > ref) cout << "h2 > ref" << endl;
+  if (h2 == ref) cout << "h2 == ref" << endl;
+  cout << endl;
 
-//   Timing h3(Timing::WEDNESDAY,Time(10,0),Time(3,0));
-//   cout << "h3  : ";
-//   h3.display();
-//   cout << endl;
-//   if (h3 < ref) cout << "h3 < ref" << endl;
-//   if (h3 > ref) cout << "h3 > ref" << endl;
-//   if (h3 == ref) cout << "h3 == ref" << endl;
-//   cout << endl;
+  Timing h3(Timing::WEDNESDAY,Time(10,0),Time(3,0));
+  cout << "h3  : ";
+  h3.display();
+  cout << endl;
+  if (h3 < ref) cout << "h3 < ref" << endl;
+  if (h3 > ref) cout << "h3 > ref" << endl;
+  if (h3 == ref) cout << "h3 == ref" << endl;
+  cout << endl;
 
-//   Timing h4(Timing::WEDNESDAY,Time(10,0),Time(2,0));
-//   cout << "h4  : ";
-//   h4.display();
-//   cout << endl;
-//   if (h4 < ref) cout << "h4 < ref" << endl;
-//   if (h4 > ref) cout << "h4 > ref" << endl;
-//   if (h4 == ref) cout << "h4 == ref" << endl;
-//   cout << endl;
-// }
+  Timing h4(Timing::WEDNESDAY,Time(10,0),Time(2,0));
+  cout << "h4  : ";
+  h4.display();
+  cout << endl;
+  if (h4 < ref) cout << "h4 < ref" << endl;
+  if (h4 > ref) cout << "h4 > ref" << endl;
+  if (h4 == ref) cout << "h4 == ref" << endl;
+  cout << endl;
+}
