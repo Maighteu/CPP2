@@ -14,7 +14,7 @@ void Essai3();
 void Essai4();
 void Essai5();
 void Essai6();
-// void Essai7();
+void Essai7();
 
 int main(int argc,char* argv[])
 {
@@ -33,7 +33,7 @@ int main(int argc,char* argv[])
       case 4 : Essai4(); break;
       case 5 : Essai5(); break;
       case 6 : Essai6(); break;
-      // case 7 : Essai7(); break;
+       case 7 : Essai7(); break;
       default : fini = true ; break;
     }
   }
@@ -305,7 +305,8 @@ void Essai7()
   ref.display();
   cout << endl << endl;
 
-  Timing h1(Timing::FRIDAY,Time(9,0),Time(1,0));
+    cout << "Test 1"<<endl;
+  Timing h1(Timing::MONDAY,Time(9,0),Time(1,0));
   cout << "h1  : ";
   h1.display();
   cout << endl;
@@ -314,6 +315,7 @@ void Essai7()
   if (h1 == ref) cout << "h1 == ref" << endl ;
   cout << endl;
 
+   cout << "Test 2"<<endl;
   Timing h2(Timing::WEDNESDAY,Time(9,0),Time(2,0));
   cout << "h2  : ";
   h2.display();
@@ -323,6 +325,7 @@ void Essai7()
   if (h2 == ref) cout << "h2 == ref" << endl;
   cout << endl;
 
+   cout << "Test 3"<<endl;
   Timing h3(Timing::WEDNESDAY,Time(10,0),Time(3,0));
   cout << "h3  : ";
   h3.display();
@@ -332,6 +335,7 @@ void Essai7()
   if (h3 == ref) cout << "h3 == ref" << endl;
   cout << endl;
 
+   cout << "Test 4"<<endl;
   Timing h4(Timing::WEDNESDAY,Time(10,0),Time(2,0));
   cout << "h4  : ";
   h4.display();

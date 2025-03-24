@@ -2,9 +2,9 @@
 #include <time.h>
 using namespace std;
 
-#include "Professor.h"
-#include "Group.h"
-#include "Classroom.h"
+#include "../Professor.h"
+#include "../Group.h"
+#include "../Classroom.h"
 
 int  Menu();
 void Essai1();

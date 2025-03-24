@@ -183,20 +183,20 @@ bool Time::operator==(const Time& i)
 	return false;
 }
 
-bool Time::operator<(const Time& i) const
+bool Time::operator<(const Time& i)
 {
 
 	if(getHour() < i.getHour()) return true;
-	if(getHour() > i.getHour()) return false;
 	if( getMinute() < i.getMinute() ) return true;
-	if( getMinute() > i.getMinute() ) return false;
 	return false;
 }
 
-bool Time::operator>(const Time& i) const
+bool Time::operator>(const Time& i)
 {
 
-	return (i < *this);
+	if(getHour() > i.getHour()) 
+	if( getMinute() > i.getMinute() ) return true;
+	return false;
 }
 
 ostream& operator<<(ostream& s,const Time& i)

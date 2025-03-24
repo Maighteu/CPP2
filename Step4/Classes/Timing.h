@@ -4,12 +4,8 @@
 #include <iostream>
 #include <string.h>
 #include <stdio.h>
-#include <string.h>
 #include <ctime>
-#include <SDL/SDL.h>
-
 #include "Time.h"
-
 
 using namespace std;
 namespace planning{
@@ -42,8 +38,8 @@ class Timing
 		void display()const;
 
 		bool operator==(const Timing& i);
-		bool operator<(const Timing& i)const;
-		bool operator>(const Timing& i)const;
+		bool operator<(const Timing& i);
+		bool operator>(const Timing& i);
 	private:
 		string day="default";
 		Time start, duration;

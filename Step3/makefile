@@ -1,6 +1,6 @@
 LIB=./Classes/
 
-Test3:	Test3.cpp $(LIB)Timing.o $(LIB)Event.o $(LIB)Time.o 
+Test3:	Test3.cpp $(LIB)Time.o $(LIB)Timing.o $(LIB)Event.o 
 		g++ Test3.cpp $(LIB)Timing.o $(LIB)Event.o $(LIB)Time.o  -o Test3
 
 $(LIB)Event.o:	$(LIB)Event.cpp $(LIB)Event.h
