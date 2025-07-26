@@ -2,9 +2,9 @@
 #include <time.h>
 using namespace std;
 
-#include "../Professor.h"
-#include "../Group.h"
-#include "../Classroom.h"
+#include "Classes/Professor.h"
+#include "Classes/Group.h"
+#include "Classes/Classroom.h"
 
 int  Menu();
 void Essai1();
@@ -121,6 +121,8 @@ void Essai2()
   cout << "tuple()    --> " << g3.tuple() << endl;
 
   cout << endl << "----- 2.6 Test de l'operateur = de Group --------------------------------------" << endl;
+  cout << "--> Voici g1 (avant affectation) : " << g1 << endl;
+
   g1 = g3;
   cout << "--> Voici g1 (apres affectation) : " << g1 << endl;
 }
@@ -194,7 +196,7 @@ void Essai4()
 
   cout << endl << "----- 4.2 Test des methodes VIRTUELLE toString() et tuple() --------------------" << endl;
   for (int i=0 ; i<10 ; i++)
-    cout << "schedulables[" << i << "] : " << schedulables[i]->toString() << " -- " << schedulables[i]->tuple() << endl;
+    cout << "schedulables[" << i << "] : " << schedulables[i]->toString() << " -- " << schedulables[i]->tuple() << endl; //utilise tuple et to string qui sont mes methodes virtuelles
   
   cout << endl << "----- 4.3 Liberation memoire ---------------------------------------------------" << endl;
   for (int i=0 ; i<10 ; i++) delete schedulables[i];  // Tout se passe-t-il comme vous voulez ?
@@ -237,7 +239,7 @@ void Essai5()
   {
     cout << "schedulables[" << i << "] ";
     Professor* pProfessor = dynamic_cast<Professor*>(schedulables[i]);
-    if (pProfessor != nullptr) cout << "est un Professor : " << pProfessor->getLastName() << " " << pProfessor->getFirstName() << endl;
+    if (pProfessor != nullptr) cout << "est un Professor : " << pProfessor->getLastName() << " " << pProfessor->getFirstName() << endl; //utilise mes get qui ne sont présente que dans mes classes filles
     Group* pGroup = dynamic_cast<Group*>(schedulables[i]);
     if (pGroup != nullptr) cout << "est un Group : " << pGroup->getName() << endl;
     Classroom* pClassroom = dynamic_cast<Classroom*>(schedulables[i]);

@@ -1,5 +1,7 @@
 #include "Time.h"
 #include "Timing.h"
+
+
 namespace planning{
  const string Timing::MONDAY("Lundi");
  const string Timing::TUESDAY("Mardi");
@@ -15,7 +17,7 @@ Timing::Timing()
 	setStart(Time());
 	setDuration (Time());
 }
-
+ 
 Timing::Timing(const Timing& i)
 {
 	setDay(i.getDay());
@@ -72,14 +74,12 @@ Time Timing::getDuration() const
 
 void Timing::display() const
 {
-cout<<endl<<getDay()<<endl;
-printf("\ntiming here\n");
+cout<<endl<<"Timing here"<<endl<<"day :"<<getDay()<<endl;
 cout<<"start:";
 start.display();
 cout<<"duration:";
 duration.display();
 }	
-
 
 bool Timing::operator==(const Timing& i)
 {
@@ -87,20 +87,23 @@ bool Timing::operator==(const Timing& i)
 	return false;
 }
 
-bool Timing::operator<(const Timing& i)
+bool Timing::operator<(const Timing& i) const
 {
 	if(getDay() < i.getDay()) return true;
+	if(getDay() > i.getDay()) return false;
+
 	if(getStart() < i.getStart()) return true;
+	if(getStart() > i.getStart()) return false;
+
 	if( getDuration() < i.getDuration() ) return true;
+	if( getDuration() < i.getDuration() ) return false;
+
 	return false;
 }
 
-bool Timing::operator>(const Timing& i)
+bool Timing::operator>(const Timing& i) const
 {
-	if(getDay() > i.getDay()) return true;
-	if(getStart() > i.getStart()) return true;
-	if( getDuration() > i.getDuration() ) return true;
-	return false;
+	return i < (*this);
 	
 }
 }

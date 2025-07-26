@@ -2,33 +2,34 @@
 
 Schedulable::Schedulable()
 {
-	setId(-1);
+	setId(0);
 }
+
 Schedulable::~Schedulable()
 {
 
 }
+
 Schedulable::Schedulable(const Schedulable& i)
 {
 	setId(i.getId());
 }
-Schedulable::Schedulable(const int i)
-{
-	setId(i);
-}
-int Schedulable::getId()const
-{
-	return id;
-}
-void Schedulable::setId(int i)
-{
-	id = i;
-}
-const string Schedulable::toString() const
-{
 
-}
-const string Schedulable::tuple() const
+Schedulable::Schedulable(int s)
 {
+	setId(s);
+}
 
+int Schedulable::getId() const
+{
+	return this->id;
+}
+
+void Schedulable::display() const
+{
+	cout<<endl<<"id: "<< getId()<<endl;
+}
+void Schedulable::setId(int ID)
+{
+ id = ID;
 }

@@ -33,8 +33,8 @@ class Time
 		Time operator-(int m);
 		Time operator-(const Time& i);
 		bool operator==(const Time& i);
-		bool operator<(const Time& i);
-		bool operator>(const Time& i);
+		bool operator<(const Time& i)const;
+		bool operator>(const Time& i)const;
 		Time operator++(int);
 		Time operator++();
 		Time operator--(int);

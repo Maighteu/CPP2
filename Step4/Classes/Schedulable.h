@@ -4,24 +4,25 @@
 #include <iostream>
 #include <string.h>
 #include <stdio.h>
-#include <ctime>
 
-class  Schedulable
+using namespace std;
+class Schedulable
 {
-
-private:
-	int id;
-public:
+	protected:
+		int id;
+	public:
 		Schedulable();
-		~Schedulable();
-		Schedulable(const Schedulable& i);
-		Schedulable(const int i);
+		virtual ~Schedulable();
+		Schedulable(int);
+		Schedulable(const Schedulable&);
+		void setId(int);
+		int getId() const;
+		void display() const;
 
-		int getId()const;
-		void setId(int i);
 
-		const string toString() const;
-		const string tuple() const;
-
+		virtual string toString() const = 0;
+		virtual string tuple() const = 0;
 };
+
+
 #endif
