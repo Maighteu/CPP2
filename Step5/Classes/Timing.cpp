@@ -1,6 +1,7 @@
 #include "Time.h"
 #include "Timing.h"
-
+#include "TimeException.h"
+#include "TimingException.h"
 
 namespace planning{
  const string Timing::MONDAY("Lundi");
@@ -13,7 +14,7 @@ namespace planning{
 		
 Timing::Timing()
 {
-	setDay("Default");
+	setDay("Lundi");
 	setStart(Time());
 	setDuration (Time());
 }
@@ -38,8 +39,41 @@ Timing::Timing(const string day, Time s, Time D)
 }
 
 void Timing::setDay(const string d)
-{
-	day= d;
+{ 
+	if (d.empty()) throw TimingException(TimingException::INVALID_DAY, "No day inserted");
+
+	if (d == Timing::MONDAY)
+	{
+	    day = d;
+	}
+	else if (d == Timing::TUESDAY)
+	{
+	    day = d;
+	}
+	else if (d == Timing::WEDNESDAY)
+	{
+	    day = d;
+	}
+	else if (d == Timing::THURSDAY)
+	{
+	    day = d;
+	}
+	else if (d == Timing::FRIDAY)
+	{
+	    day = d;
+	}
+	else if (d == Timing::SATURDAY)
+	{
+	    day = d;
+	}
+	else if (d == Timing::SUNDAY)
+	{
+	    day = d;
+	}
+	else
+	{
+	    throw TimingException(TimingException::INVALID_DAY, "Non existing day inserted");
+	}
 }
 
 void Timing::setStart(const Time s)
@@ -79,6 +113,7 @@ cout<<"start:";
 start.display();
 cout<<"duration:";
 duration.display();
+cout<<endl<<"find display";
 }	
 
 bool Timing::operator==(const Timing& i)

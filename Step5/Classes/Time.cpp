@@ -1,4 +1,5 @@
 #include "Time.h"
+#include "TimeException.h"
 
 namespace planning{
 
@@ -25,19 +26,25 @@ Time::Time(int h, int m)
 }
 Time::Time(int m)
 {
+	 
 	int h;
 	h = (m /60);
 	m = (m % 60);
+	if (m <= 0) throw TimeException(TimeException::INVALID_MINUTE, "minute must be more than 0");
+
 	setHour(h);
 	setMinute(m);
 }
 
 void Time::setHour(int h)
 {
+	 if (h < 0 || h >= 24) throw TimeException(TimeException::INVALID_HOUR, "Hour must be between 1 and 24");
 	hour = h;
 }
 void Time::setMinute(int m)
 {
+	 if (m < 0 || m >= 60)
+     throw TimeException(TimeException::INVALID_MINUTE, "Minute must be between 0 and 60");
 	minute = m;
 }
 int Time::getHour() const
@@ -63,30 +70,26 @@ Time& Time::operator=(const Time& i)
 }
 Time Time::operator+(int m)
 {
+
 	Time t(*this);
 	int h;
 	h = (m /60);
-	m = (m % 60);
-	t.setMinute(getMinute()+ m);
+	m = t.getMinute()+(m % 60);
+
+
+	if(m >=60)
+	{
+		m= m-60;
+		h = h + 1;
+	}
+	t.setMinute( m);
 	t.setHour(getHour()+h);
-
-	if(t.getMinute()>=60)
-	{
-		t.setMinute(t.getMinute()-60);
-		t.setHour(t.getHour()+1);
-	}
-	if (t.getHour()>=24)
-	{
-		t.setHour(t.getHour()-24);
-
-	}
 	return t;
 
 }
 Time Time::operator+(const Time& temp) 
 	{	
 		Time t(*this);
-	
 	t.setMinute(getMinute()+ temp.minute);
 	t.setHour(getHour()+temp.hour);
 
@@ -225,6 +228,11 @@ istream& operator>>(istream& s, Time& i)
 
 Time Time::operator++(int )
 {
+	int M = (*this).getMinute();
+	int H = (*this).getHour();
+	M = H * 60 + M;
+	if (M > 1440) throw TimeException(TimeException::OVERFLOW, "More than 24:00");
+
 	Time t(*this);
 	(*this)= (*this) +30;
 	return t;
@@ -232,12 +240,20 @@ Time Time::operator++(int )
 
 Time Time::operator++()
 {
+	int M = (*this).getMinute();
+	int H = (*this).getHour();
+	M = H * 60 + M;
+	if (M > 1440) throw TimeException(TimeException::OVERFLOW, "More than 24:00");
  	(*this)= (*this) +30;
  	return (*this);
 }
 
 Time Time::operator--(int )
 {
+	int M = (*this).getMinute();
+	int H = (*this).getHour();
+	M = H * 60 + M;
+	if (M < 0) throw TimeException(TimeException::OVERFLOW, "Less than 00:00");
 	Time t(*this);
 	(*this)= (*this) -30;
 	return t;
@@ -246,6 +262,10 @@ Time Time::operator--(int )
 
 Time Time::operator--()
 {
+	int M = (*this).getMinute();
+	int H = (*this).getHour();
+	M = H * 60 + M;
+	if (M < 0) throw TimeException(TimeException::OVERFLOW, "Less than 00:00");
  	(*this)= (*this) -30;
  	return (*this);
 }

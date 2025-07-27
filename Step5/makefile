@@ -1,7 +1,7 @@
 LIB=./Classes/
 
-Test5:	Test5.cpp $(LIB)Time.o $(LIB)Timing.o $(LIB)Event.o $(LIB)Schedulable.o $(LIB)Professor.o $(LIB)Group.o $(LIB)Classroom.o
-		g++ Test5.cpp $(LIB)Timing.o $(LIB)Event.o $(LIB)Time.o $(LIB)Schedulable.o $(LIB)Professor.o $(LIB)Group.o $(LIB)Classroom.o  -o Test4
+Test5:	Test5.cpp $(LIB)Time.o $(LIB)Timing.o $(LIB)Event.o $(LIB)Schedulable.o $(LIB)Professor.o $(LIB)Group.o $(LIB)Classroom.o $(LIB)Exception.o $(LIB)TimeException.o $(LIB)TimingException.o
+		g++ Test5.cpp $(LIB)Timing.o $(LIB)Event.o $(LIB)Time.o $(LIB)Schedulable.o $(LIB)Professor.o $(LIB)Group.o $(LIB)Classroom.o $(LIB)Exception.o $(LIB)TimeException.o $(LIB)TimingException.o  -o Test5
 
 $(LIB)Event.o:	$(LIB)Event.cpp $(LIB)Event.h
 		g++ $(LIB)Event.cpp -c -o $(LIB)Event.o
@@ -17,6 +17,11 @@ $(LIB)Group.o:	$(LIB)Group.cpp $(LIB)Group.h
 		g++ $(LIB)Group.cpp -c -o $(LIB)Group.o
 $(LIB)Classroom.o:	$(LIB)Classroom.cpp $(LIB)Classroom.h
 		g++ $(LIB)Classroom.cpp -c -o $(LIB)Classroom.o
-
+$(LIB)Exception.o:	$(LIB)Exception.cpp $(LIB)Exception.h
+		g++ $(LIB)Exception.cpp -c -o $(LIB)Exception.o
+$(LIB)TimeException.o:	$(LIB)TimeException.cpp $(LIB)TimeException.h
+		g++ $(LIB)TimeException.cpp -c -o $(LIB)TimeException.o
+$(LIB)TimingException.o:	$(LIB)TimingException.cpp $(LIB)TimingException.h
+		g++ $(LIB)TimingException.cpp -c -o $(LIB)TimingException.o
 clean:
-	rm -f $(LIB)*.o $(LIB)Test?
+	rm -f $(LIB)*.o Test?

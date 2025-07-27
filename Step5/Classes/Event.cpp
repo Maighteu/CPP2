@@ -1,4 +1,7 @@
 #include "Event.h"
+#include "TimeException.h"
+#include "TimingException.h"
+
 namespace planning{
 int Event::currentCode =1;
 Event::Event()
@@ -60,13 +63,15 @@ void Event::display()const
 // }
 
  Timing& Event::getTiming()const
-	{
+{
+	if (timing == nullptr) throw TimingException(TimingException::NO_TIMING, "No data inserted");
 	return *timing;
 }
 
-void Event::setTiming(Timing tim)
+void Event::setTiming(const Timing& tim)
 {
-	timing = &tim;
+    if (timing) delete timing;           // nettoyer si déjà alloué
+    timing = new Timing(tim);            // faire une copie dynamique
 }
 Event& Event::operator=(const Event& i)
 {

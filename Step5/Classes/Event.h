@@ -26,7 +26,7 @@ class Event
 		void setTitle(const char* t);
 		void setCode(int c);
 
-		void setTiming(Timing tim);
+		void setTiming(const Timing& tim);
 		//void setTiming( Timing* tim);
 		 Timing& getTiming()const;
 		
