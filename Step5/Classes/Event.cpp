@@ -12,22 +12,25 @@ Event::Event()
 }
 Event::~Event()
 {
-	if(title) delete title;
-	//if (timing) delete timing; si présent double free
-} 
+
+    if (title) delete[] title;
+    if (timing) delete timing;
+}
+
+ 
 Event::Event(int c,const char* t)
 {
-	setTitle(t);
-	setCode(c);
+   setCode(c);
+   title = nullptr;
+   setTitle(t);
+   timing = nullptr;
 }
 Event::Event(const Event& i)
 {
-	setTitle(i.getTitle());
-	setCode(i.getCode());
-	if (i.timing)
-	{
-		timing = i.timing;
-	}
+    setCode(i.getCode());
+    title = nullptr;
+    setTitle(i.getTitle());
+    timing = new Timing(*(i.timing));
 }
 
 void Event::setTitle(const char*t)
@@ -51,9 +54,8 @@ int Event::getCode()const
 void Event::display()const
 {
 	cout<< endl<< "Code: "<<getCode()<<endl<<"Titre: "<< getTitle()<<endl;
-	if (timing)	
+	if (timing != nullptr)	
 	{
-		printf("\naffiche timing\n");
 		timing->display();
 	}
 }
@@ -62,7 +64,7 @@ void Event::display()const
 //  timing= new Timing(*tim);
 // }
 
- Timing& Event::getTiming()const
+ Timing Event::getTiming()const
 {
 	if (timing == nullptr) throw TimingException(TimingException::NO_TIMING, "No data inserted");
 	return *timing;
@@ -70,18 +72,9 @@ void Event::display()const
 
 void Event::setTiming(const Timing& tim)
 {
-    if (timing) delete timing;           // nettoyer si déjà alloué
-    timing = new Timing(tim);            // faire une copie dynamique
-}
-Event& Event::operator=(const Event& i)
-{
-	setTitle(i.getTitle());
-	setCode(i.getCode());
-	if (i.timing)
-	{
-		timing = i.timing;
-	}
-	return(*this);
-}
+    if (timing != nullptr)
+      delete timing;
+    timing = new Timing(tim);
+ }
 
 }

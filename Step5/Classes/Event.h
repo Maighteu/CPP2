@@ -22,18 +22,18 @@ class Event
 		Event();
 		~Event();
 		Event(int c,const char* t);
-		Event(const Event &i);
+		Event(const Event &i) ;
 		void setTitle(const char* t);
 		void setCode(int c);
 
-		void setTiming(const Timing& tim);
+		void setTiming(const Timing& t);
 		//void setTiming( Timing* tim);
-		 Timing& getTiming()const;
+		 Timing getTiming()const;
 		
 		const char* getTitle()const;
 		int getCode()const;
 		void display()const;
-		Event& operator=(const Event& i);
+		// Event& operator=(const Event& i);
 
 };
 }

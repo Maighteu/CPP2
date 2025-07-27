@@ -26,10 +26,6 @@ Timing::Timing(const Timing& i)
 	setDuration (i.getDuration());
 }
 
-Timing::~Timing()
-{
-
-}
 
 Timing::Timing(const string day, Time s, Time D)
 {
@@ -78,17 +74,17 @@ void Timing::setDay(const string d)
 
 void Timing::setStart(const Time s)
 {
-	// start.setHour(s.getHour());
-	// start.setMinute(s.getMinute());
-	start = s;
+	start.setHour(s.getHour());
+	start.setMinute(s.getMinute());
+	// start = s;
 }
 
 void Timing::setDuration(const Time D)
 {
 
-	// duration.setHour(D.getHour());
-	// duration.setMinute(D.getMinute());
-	duration =D ;
+	duration.setHour(D.getHour());
+	duration.setMinute(D.getMinute());
+	// duration =D ;
 }
 
 const string Timing::getDay() const

@@ -25,7 +25,7 @@ class Timing
 		static const string SATURDAY;
 		static const string SUNDAY;
 		Timing();
-		~Timing();
+		~Timing() = default;
 		Timing(const Timing& i);
 		Timing(const string d, Time s, Time D);
 

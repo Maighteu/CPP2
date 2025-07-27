@@ -30,7 +30,7 @@ Time::Time(int m)
 	int h;
 	h = (m /60);
 	m = (m % 60);
-	if (m <= 0) throw TimeException(TimeException::INVALID_MINUTE, "minute must be more than 0");
+	if (m < 0) throw TimeException(TimeException::INVALID_MINUTE, "minute must be 0 or more");
 
 	setHour(h);
 	setMinute(m);
@@ -38,13 +38,13 @@ Time::Time(int m)
 
 void Time::setHour(int h)
 {
-	 if (h < 0 || h >= 24) throw TimeException(TimeException::INVALID_HOUR, "Hour must be between 1 and 24");
+	 if (h < 0 || h >= 24) throw TimeException(TimeException::INVALID_HOUR, "Hour must be between 0:00 and 23:59");
 	hour = h;
 }
 void Time::setMinute(int m)
 {
 	 if (m < 0 || m >= 60)
-     throw TimeException(TimeException::INVALID_MINUTE, "Minute must be between 0 and 60");
+     throw TimeException(TimeException::INVALID_MINUTE, "Minute must be between 0 and 59");
 	minute = m;
 }
 int Time::getHour() const
@@ -98,11 +98,11 @@ Time Time::operator+(const Time& temp)
 		t.setMinute(t.getMinute()-60);
 		t.setHour(t.getHour()+1);
 	}
-	if (t.getHour()>24)
-	{
-		t.setHour(t.getHour()-24);
+	// if (t.getHour()>24)
+	// {
+	// 	t.setHour(t.getHour()-24);
 
-	}
+	// }
  
 		return t;
 	}
@@ -115,25 +115,26 @@ Time operator+(int min, Time t)
 
 Time Time::operator-(int m)
 {
-	Time t(*this);
-	int h;
-	h = (m /60);
-	m = (m % 60);
-	t.setMinute(getMinute()- m);
-	t.setHour(getHour()- h);
-	if(t.getMinute()<=0)
-	{
-		t.setMinute(t.getMinute()+60);
-		t.setHour(t.getHour()-1);
-	}
-	if (t.getHour()<=0)
-	{
-		t.setHour(t.getHour()+24);
-	}
+    Time t(*this);
+    int h = m / 60;
+    int min = m % 60;
 
-	return t;
+    int newMinute = getMinute() - min;
+    int newHour = getHour() - h;
 
+    if (newMinute < 0)
+    {
+        newMinute += 60;
+        newHour -= 1;
+    }
+
+  
+    t.setMinute(newMinute);
+    t.setHour(newHour);
+
+    return t;
 }
+
 Time Time::operator-(const Time& temp) 
 {	
 	Time t(*this);
@@ -141,16 +142,12 @@ Time Time::operator-(const Time& temp)
 	t.setMinute(getMinute()- temp.minute);
 	t.setHour(getHour()- temp.hour);
 
-	if(t.getMinute()<=0)
+	if(t.getMinute()<0)
 	{
 		t.setMinute(t.getMinute()+60);
 		t.setHour(t.getHour()-1);
 	}
-	if (t.getHour()<=0)
-	{
-		t.setHour(t.getHour()+24);
 
-	}
  
 	return t;
 
@@ -158,26 +155,26 @@ Time Time::operator-(const Time& temp)
 Time operator-(int min, Time t) 
 {	
 	Time temp;
- 
-		temp.setHour(min /60);
-		temp.setMinute(min%60);
- 
-		temp.setHour(temp.getHour() - t.getHour());
-		temp.setMinute(temp.getMinute() - t.getMinute());
- 
-		if (temp.getMinute() < 0)
-		{
-			temp.setMinute(temp.getMinute() + 60);
-			temp.setHour(temp.getHour() - 1);
-		}
- 
-		if (temp.getHour() < 0)
-		{
-			temp.setHour(temp.hour + 24);
-		}
- 
-		return temp;
+
+	int newHour = (min / 60);
+	int newMinute = (min % 60);
+
+	newHour = (t.getHour() - newHour);
+	newMinute = (t.getMinute() - newMinute);
+
+	// Ajuster les minutes négatives
+	if (newMinute < 0)
+	{
+		newMinute = (newMinute + 60);
+		newHour= (newHour - 1);
+	}
+
+	temp.setMinute(newMinute);
+	temp.setHour(newHour);
+
+	return temp;
 }
+
 
 
 bool Time::operator==(const Time& i)
@@ -252,6 +249,7 @@ Time Time::operator--(int )
 {
 	int M = (*this).getMinute();
 	int H = (*this).getHour();
+	cout<< H<<":"<<M;
 	M = H * 60 + M;
 	if (M < 0) throw TimeException(TimeException::OVERFLOW, "Less than 00:00");
 	Time t(*this);
