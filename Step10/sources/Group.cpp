@@ -20,9 +20,33 @@ string Group::getName() const
 	return name;
 }
 
-ostream& operator<<(ostream &s,const Group &g )
+ostream &operator<<(ostream &s, const Group &g)
 {
-    return s << g.toString();
+    s << "<Group>" << endl;
+    s << "<id>" << endl;
+    s << g.id << endl;
+    s << "</id>" << endl;
+    s << "<name>" << endl;
+    s << g.name << endl;
+    s << "</name>" << endl;
+    s << "</Group>";
+    return s;
+}
+
+istream &operator>>(istream &s, Group &g)
+{
+    string line;
+    getline(s, line);
+    getline(s, line);
+    getline(s, line);
+    g.setId(stoi(line));
+    getline(s, line);
+    getline(s, line);
+    getline(s, line);
+    g.setName(line);
+    getline(s, line);
+    getline(s, line);
+    return s;
 }
 string Group::toString() const
 {

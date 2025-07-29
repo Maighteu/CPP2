@@ -2,9 +2,14 @@
 #define TIMETABLE_H
 
 #include <set>
+#include <fcntl.h>
+#include <unistd.h>
 #include "Classroom.h"
 #include "Professor.h"
 #include "Group.h"
+#include "Schedulable.h"
+#include "XmlFileSerializer.hpp"
+#include "XmlFileSerializerException.h"
 
 class Timetable
 {
@@ -47,6 +52,9 @@ public:
     string getProfessorTupleByIndex(int);
     string getGroupTupleByIndex(int);
     string getClassroomTupleByIndex(int);
+    int save(const string& timetableName);
+    int load(const string& timetableName);
+    void VideCont();
 };
 
 #endif

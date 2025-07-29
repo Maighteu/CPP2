@@ -38,10 +38,14 @@ CMakeFiles/ApplicHoraire.dir/sources/TimeException.cpp.o: includes/TimeException
 
 CMakeFiles/ApplicHoraire.dir/sources/Timetable.cpp.o: sources/Timetable.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Timetable.cpp.o: includes/Classroom.h
+CMakeFiles/ApplicHoraire.dir/sources/Timetable.cpp.o: includes/Exception.h
 CMakeFiles/ApplicHoraire.dir/sources/Timetable.cpp.o: includes/Group.h
 CMakeFiles/ApplicHoraire.dir/sources/Timetable.cpp.o: includes/Professor.h
 CMakeFiles/ApplicHoraire.dir/sources/Timetable.cpp.o: includes/Schedulable.h
 CMakeFiles/ApplicHoraire.dir/sources/Timetable.cpp.o: includes/Timetable.h
+CMakeFiles/ApplicHoraire.dir/sources/Timetable.cpp.o: includes/XmlFileSerializer.hpp
+CMakeFiles/ApplicHoraire.dir/sources/Timetable.cpp.o: includes/XmlFileSerializer.ipp
+CMakeFiles/ApplicHoraire.dir/sources/Timetable.cpp.o: includes/XmlFileSerializerException.h
 
 CMakeFiles/ApplicHoraire.dir/sources/Timing.cpp.o: sources/Timing.cpp
 CMakeFiles/ApplicHoraire.dir/sources/Timing.cpp.o: includes/Exception.h
@@ -231,10 +235,14 @@ CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o: /usr/include/qt5
 CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o: /usr/include/qt5/QtWidgets/qtwidgetsglobal.h
 CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o: /usr/include/qt5/QtWidgets/qwidget.h
 CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o: includes/Classroom.h
+CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o: includes/Exception.h
 CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o: includes/Group.h
 CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o: includes/Professor.h
 CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o: includes/Schedulable.h
 CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o: includes/Timetable.h
+CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o: includes/XmlFileSerializer.hpp
+CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o: includes/XmlFileSerializer.ipp
+CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o: includes/XmlFileSerializerException.h
 CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o: includes/applichorairewindow.h
 CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o: includes/ui_applichorairewindow.h
 
@@ -354,10 +362,14 @@ CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o: /usr/include/qt5/QtWidgets/qtwi
 CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o: /usr/include/qt5/QtWidgets/qtwidgetsglobal.h
 CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o: /usr/include/qt5/QtWidgets/qwidget.h
 CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o: includes/Classroom.h
+CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o: includes/Exception.h
 CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o: includes/Group.h
 CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o: includes/Professor.h
 CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o: includes/Schedulable.h
 CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o: includes/Timetable.h
+CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o: includes/XmlFileSerializer.hpp
+CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o: includes/XmlFileSerializer.ipp
+CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o: includes/XmlFileSerializerException.h
 CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o: includes/applichorairewindow.h
 
 CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o: sources/moc_applichorairewindow.cpp
@@ -469,9 +481,13 @@ CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o: /usr/include
 CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o: /usr/include/qt5/QtWidgets/qtwidgetsglobal.h
 CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o: /usr/include/qt5/QtWidgets/qwidget.h
 CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o: includes/Classroom.h
+CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o: includes/Exception.h
 CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o: includes/Group.h
 CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o: includes/Professor.h
 CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o: includes/Schedulable.h
 CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o: includes/Timetable.h
+CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o: includes/XmlFileSerializer.hpp
+CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o: includes/XmlFileSerializer.ipp
+CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o: includes/XmlFileSerializerException.h
 CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o: includes/applichorairewindow.h
 

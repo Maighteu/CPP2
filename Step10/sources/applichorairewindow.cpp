@@ -596,24 +596,44 @@ void ApplicHoraireWindow::on_actionQuitter_triggered()
 void ApplicHoraireWindow::on_actionOuvrir_triggered()
 {
     cout << "Clic sur Menu Fichier --> Item Ouvrir" << endl;
-    // TO DO (Etape 10)
+    string NomFichier = dialogInputText("File selection", "Inserer le fichier");
+    auto &Timetable = Timetable::getInstance();
 
+    if (Timetable.load(NomFichier))
+    {
+        dialogMessage("File opened", "Fichier Ouvert");
+        MiseAJourTableClassroom(Timetable);
+        MiseAJourTableGroup(Timetable);
+        MiseAJourTableProfesseur(Timetable);
+        return;
+    }
+    dialogError("File not opening", "Echec de l'ouverture");
 }
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_actionNouveau_triggered()
 {
     cout << "Clic sur Menu Fichier --> Item Nouveau" << endl;
-    // TO DO (Etape 10)
-
+    auto &Timetable = Timetable::getInstance();
+    Timetable.VideCont();
+    MiseAJourTableClassroom(Timetable);
+    MiseAJourTableGroup(Timetable);
+    MiseAJourTableProfesseur(Timetable);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_actionEnregistrer_triggered()
 {
     cout << "Clic sur Menu Fichier --> Item Enregistrer" << endl;
-    // TO DO (Etape 10)
-
+auto &Timetable = Timetable::getInstance();
+string NomFichier = dialogInputFileForSave("Nom duu fichier a sauvegarder");
+if (Timetable.save(NomFichier))
+{
+    dialogMessage("File save", "Fichier sauvegarde");
+    return;
+}
+dialogError("Error while saving", "Sauvegarde erreur");
 }
 
 ////////// ///////////////////////////////////////////////////////////////////////////////////////////////////

@@ -258,3 +258,255 @@ string Timetable::getClassroomTupleByIndex(int index)
 
     return c.tuple();
 }
+
+
+
+int Timetable::save(const string &timetableName)
+{
+    int i;
+    string Nom;
+    const char* NomFichier;
+
+    Nom = timetableName + "_config.dat";
+    NomFichier= Nom.c_str();
+
+    int fd;
+    if ((fd = open(NomFichier, O_WRONLY | O_CREAT | O_APPEND, 0777)) == -1)
+    {
+        cerr << "Error while opening" << endl;
+        return -1;
+    }
+    write(fd, &Schedulable::currentId, sizeof(Schedulable::currentId));
+    close(fd);
+
+
+
+    Nom = timetableName + "_classroom.xml";
+    XmlFileSerializer<Classroom> *FC = new XmlFileSerializer<Classroom>(Nom, XmlFileSerializer<Classroom>::WRITE, "Classrooms");
+    
+    auto c = classrooms.cbegin();
+    i = 0;
+
+    while(c != classrooms.cend())
+    {
+        Classroom t = findClassroomByIndex(i);
+        FC->write(t);
+        c++;
+        i++;
+    }
+    delete FC;
+
+
+
+    Nom = timetableName + "_group.xml";
+    XmlFileSerializer<Group> *FG = new XmlFileSerializer<Group>(Nom, XmlFileSerializer<Group>::WRITE, "Groups");
+
+    auto g = groups.cbegin();
+    i = 0;
+
+    while(g != groups.cend())
+    {
+        Group t = findGroupByIndex(i);
+        FG->write(t);
+        g++;
+        i++;
+    }
+    delete FG;
+
+
+    Nom = timetableName + "_professor.xml";
+    XmlFileSerializer<Professor> *FP = new XmlFileSerializer<Professor>(Nom, XmlFileSerializer<Professor>::WRITE, "Professors");
+
+    auto p = professors.cbegin();
+    i = 0;
+
+    while(p != professors.cend())
+    {
+        Professor t = findProfessorByIndex(i);
+        FP->write(t);
+        p++;
+        i++;
+    }
+    delete FP;
+    Schedulable::currentId = 1;
+    return 1;
+}
+
+
+
+int Timetable::load(const string &timetableName)
+{
+    Schedulable::currentId = 1;
+
+    VideCont();
+    string Nom;
+    int i;
+    
+    const char* NomFichier;
+    int fd;
+
+    Nom = timetableName + "_config.dat";
+    NomFichier= Nom.c_str();
+
+
+    if ((fd = open(NomFichier, O_RDONLY, 0777)) == -1)
+    {
+        cerr << "File can't open" << endl;
+        return -1;
+    }
+
+    if(read(fd, &Schedulable::currentId, sizeof(Schedulable::currentId)) < 1)
+    {
+        cerr << "error id < 1" << endl;
+        close(fd);
+        return -1;
+    }
+    cout << "Id: " << Schedulable::currentId << endl;
+    close(fd);
+
+
+    Nom = timetableName + "_classroom.xml";
+
+    XmlFileSerializer<Classroom> *FC = nullptr;
+    try
+    {
+        FC = new XmlFileSerializer<Classroom>(Nom, XmlFileSerializer<Classroom>::READ);
+        cout << "Filename: " << FC->getFilename() << endl;
+        cout << "Collection name: " << FC->getCollectionName() << endl;
+        cout << "Readable: " << FC->isReadable() << endl;
+        cout << "Writable: " << FC->isWritable() << endl
+             << endl;
+    }
+    catch (const XmlFileSerializerException &e)
+    {
+        cout << e.getMessage() << " code: " << e.getCode()<< endl;
+    }
+
+    if (FC != nullptr)
+    {
+        bool end = false;
+        while (!end)
+        {
+            try
+            {
+                Classroom val = FC->read();
+                addClassroom(val.getName(),val.getSeatingCapacity());
+            }
+            catch (const XmlFileSerializerException &e)
+            {
+                if (e.getCode() == XmlFileSerializerException::END_OF_FILE)
+                    end = true;
+                else
+                {
+                    cout << e.getMessage() << " code: " << e.getCode()<< endl;
+                    break;
+                }
+            }
+        }
+        delete FC;
+    }
+
+
+    Nom = timetableName + "_group.xml";
+
+    XmlFileSerializer<Group> *FG = nullptr;
+    try
+    {
+        FG = new XmlFileSerializer<Group>(Nom, XmlFileSerializer<Group>::READ);
+        cout << "Filename: " << FG->getFilename() << endl;
+        cout << "Collection name: " << FG->getCollectionName() << endl;
+        cout << "Readable: " << FG->isReadable() << endl;
+        cout << "Writable: " << FG->isWritable() << endl
+             << endl;
+    }
+    catch (const XmlFileSerializerException &e)
+    {
+        cout << e.getMessage() << " code: " << e.getCode() << endl;
+    }
+
+    if (FG != nullptr)
+    {
+        bool end = false;
+        while (!end)
+        {
+            try
+            {
+                Group val = FG->read();
+                addGroup(val.getName());
+            }
+            catch (const XmlFileSerializerException &e)
+            {
+                if (e.getCode() == XmlFileSerializerException::END_OF_FILE)
+                    end = true;
+                else
+                {
+                    cout<< e.getMessage() << " code: " << e.getCode() << endl;
+                    break;
+                }
+            }
+        }
+        delete FG;
+    }
+
+
+    Nom = timetableName + "_professor.xml";
+
+    XmlFileSerializer<Professor> *FP = nullptr;
+    try
+    {
+        FP = new XmlFileSerializer<Professor>(Nom, XmlFileSerializer<Professor>::READ);
+        cout << "Filename: " << FP->getFilename() << endl;
+        cout << "Collection name: " << FP->getCollectionName() << endl;
+        cout << "Readable: " << FP->isReadable() << endl;
+        cout << "Writable: " << FP->isWritable() << endl
+             << endl;
+    }
+    catch (const XmlFileSerializerException &e)
+    {
+        cout<< e.getMessage() << " code: " << e.getCode() << endl;
+    }
+
+    if (FP != nullptr)
+    {
+        bool end = false;
+        while (!end)
+        {
+            try
+            {
+                Professor val = FP->read();
+                addProfessor(val.getLastName(),val.getFirstName());
+            }
+            catch (const XmlFileSerializerException &e)
+            {
+                if (e.getCode() == XmlFileSerializerException::END_OF_FILE)
+                    end = true;
+                else
+                {
+                    cout << e.getMessage() << " code: " << e.getCode() << endl;
+                    break;
+                }
+            }
+        }
+        delete FP;
+    }
+
+    return 1;
+}
+void Timetable::VideCont()
+{
+    for (auto c = classrooms.begin(); c != classrooms.end();)
+    {
+        c = classrooms.erase(c); 
+    }
+    for (auto g = groups.begin(); g != groups.end();)
+    {
+        g = groups.erase(g);
+    }
+
+    for (auto p = professors.begin(); p != professors.end();)
+    {
+        p = professors.erase(p);
+    }
+    Schedulable::currentId = 1;
+    return;
+}
