@@ -5,7 +5,6 @@
 class Professor : public Schedulable
 {
 	friend std::ostream& operator<<(std::ostream& ,const Professor&);
-    friend istream& operator>>(istream&,Professor&);
 public:
     Professor();
     Professor(int, string, string);

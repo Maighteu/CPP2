@@ -48,39 +48,9 @@ string Professor::getFirstName() const
 
 ostream &operator<<(ostream &s, const Professor &p)
 {
-    s << "<Professor>" << endl;
-    s << "<id>" << endl;
-    s << p.id << endl;
-    s << "</id>" << endl;
-    s << "<firstName>" << endl;
-    s << p.firstName << endl;
-    s << "</firstName>" << endl;
-    s << "<lastName>" << endl;
-    s << p.lastName << endl;
-    s << "</lastName>" << endl;
-    s << "</Professor>";
+    s << p.toString();
     return s;
 };
-
-istream &operator>>(istream &s, Professor &p)
-{
-    string line;
-    getline(s, line);
-    getline(s, line);
-    getline(s, line);
-    p.setId(stoi(line));
-    getline(s, line);
-    getline(s, line);
-    getline(s, line);
-    p.setFirstName(line);
-    getline(s, line);
-    getline(s, line);
-    getline(s, line);
-    p.setLastName(line);
-    getline(s, line);
-    getline(s, line);
-    return s;
-}
 
 string Professor::toString() const
 {

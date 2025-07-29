@@ -5,7 +5,6 @@
 class Group : public Schedulable
 {
     friend ostream &operator<<(ostream&, const Group&);
-    friend istream &operator>>(istream &, Group &);
 private:
     string name;
     

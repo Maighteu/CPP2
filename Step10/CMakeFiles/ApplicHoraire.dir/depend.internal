@@ -39,14 +39,10 @@ CMakeFiles/ApplicHoraire.dir/sources/TimeException.cpp.o
 CMakeFiles/ApplicHoraire.dir/sources/Timetable.cpp.o
  /home/student/Documents/CPP/Step9/sources/Timetable.cpp
  includes/Classroom.h
- includes/Exception.h
  includes/Group.h
  includes/Professor.h
  includes/Schedulable.h
  includes/Timetable.h
- includes/XmlFileSerializer.hpp
- includes/XmlFileSerializer.ipp
- includes/XmlFileSerializerException.h
 CMakeFiles/ApplicHoraire.dir/sources/Timing.cpp.o
  /home/student/Documents/CPP/Step9/sources/Timing.cpp
  includes/Exception.h
@@ -236,14 +232,10 @@ CMakeFiles/ApplicHoraire.dir/sources/applichorairewindow.cpp.o
  /usr/include/qt5/QtWidgets/qtwidgetsglobal.h
  /usr/include/qt5/QtWidgets/qwidget.h
  includes/Classroom.h
- includes/Exception.h
  includes/Group.h
  includes/Professor.h
  includes/Schedulable.h
  includes/Timetable.h
- includes/XmlFileSerializer.hpp
- includes/XmlFileSerializer.ipp
- includes/XmlFileSerializerException.h
  includes/applichorairewindow.h
  includes/ui_applichorairewindow.h
 CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o
@@ -363,14 +355,10 @@ CMakeFiles/ApplicHoraire.dir/sources/main.cpp.o
  /usr/include/qt5/QtWidgets/qtwidgetsglobal.h
  /usr/include/qt5/QtWidgets/qwidget.h
  includes/Classroom.h
- includes/Exception.h
  includes/Group.h
  includes/Professor.h
  includes/Schedulable.h
  includes/Timetable.h
- includes/XmlFileSerializer.hpp
- includes/XmlFileSerializer.ipp
- includes/XmlFileSerializerException.h
  includes/applichorairewindow.h
 CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o
  /home/student/Documents/CPP/Step9/sources/moc_applichorairewindow.cpp
@@ -482,12 +470,8 @@ CMakeFiles/ApplicHoraire.dir/sources/moc_applichorairewindow.cpp.o
  /usr/include/qt5/QtWidgets/qtwidgetsglobal.h
  /usr/include/qt5/QtWidgets/qwidget.h
  includes/Classroom.h
- includes/Exception.h
  includes/Group.h
  includes/Professor.h
  includes/Schedulable.h
  includes/Timetable.h
- includes/XmlFileSerializer.hpp
- includes/XmlFileSerializer.ipp
- includes/XmlFileSerializerException.h
  includes/applichorairewindow.h
