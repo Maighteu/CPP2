@@ -7,6 +7,8 @@
 #include <QFileDialog>
 #include <iostream>
 #include <sstream>
+#include "Timetable.h"
+
 using namespace std;
 
 ApplicHoraireWindow::ApplicHoraireWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::ApplicHoraireWindow)
@@ -84,25 +86,7 @@ ApplicHoraireWindow::ApplicHoraireWindow(QWidget *parent) : QMainWindow(parent),
     setFixedSize(1070,647);
     move((QApplication::desktop()->width()-width())/2,(QApplication::desktop()->height()-height())/2);
 
-    // Tests a supprimer ------------------------------------------------
-    addTupleTableProfessors("1;Wagner;Jean-Marc");
-    addTupleTableProfessors("4;Leonard;Anne");
-    addTupleTableProfessors("6;Quettier;Patrick");
 
-    addTupleTableGroups("4;INFO2_D201");
-    addTupleTableGroups("6;INFO2_I201");
-    addTupleTableGroups("7;INFO2_R201");
-    addTupleTableGroups("9;INFO2_D202");
-    addTupleTableGroups("10;INFO2_R202");
-
-    addTupleTableClassrooms("23;AN");
-    addTupleTableClassrooms("25;LP03");
-    addTupleTableClassrooms("29;LE0");
-
-    addTupleTableCourses("1;Lundi;8h30;2h00;AN;Théorie C++;Wagner Jean-Marc;INFO2 D201,INFO2 D202");
-    addTupleTableCourses("3;Mardi;10h30;1h30;AN;Théorie UNIX;Quettier Patrick;INFO2 R201,INFO2 R202");
-    addTupleTableCourses("4;Jeudi;13h30;2h00;LE0;Labo C++;Leonard Anne;INFO2 I201");
-    // -------------------------------------------------------------------
 }
 
 ApplicHoraireWindow::~ApplicHoraireWindow() {
@@ -484,43 +468,103 @@ void ApplicHoraireWindow::setClassroomChecked(bool b) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_pushButtonAjouterProfesseur_clicked() {
     cout << "Clic sur bouton Ajouter Professeur" << endl;
-    // TO DO (Etape 9)
+    string LN = getProfessorLastName();
+    string FN = getProfessorFirstName();
+
+    auto &Timetable = Timetable::getInstance();
+    if (LN.empty() || FN.empty())
+    {
+        dialogError("Empty","insérer nom ET prenom");//Qt titre, message
+        return;
+    }
+    Timetable.addProfessor(LN, FN);
+    MiseAJourTableProfesseur(Timetable);
 
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_pushButtonAjouterGroupe_clicked() {
     cout << "Clic sur bouton Ajouter Groupe" << endl;
-    // TO DO (Etape 9)
+    string g = getGroupName();
 
+    auto &Timetable = Timetable::getInstance();
+
+    if (g.empty())
+    {
+        dialogError("Empty", "Inserer nom de groupe");
+        return;
+    }
+
+    Timetable.addGroup(g);
+    MiseAJourTableGroup(Timetable);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_pushButtonAjouterLocal_clicked() {
     cout << "Clic sur bouton Ajouter Local" << endl;
-    // TO DO (Etape 9)
+    string c = getClassroomName();
+    int s = rand() % 100;
+
+    auto &Timetable = Timetable::getInstance();
+
+    if (c.empty())
+    {
+        dialogError("Empty", "Ajouter un nom de Local \n");
+        return;
+    }
+
+    Timetable.addClassroom(c, s);
+    MiseAJourTableClassroom(Timetable);
 
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_pushButtonSupprimerProfesseur_clicked() {
     cout << "Clic sur bouton Supprimer Professeur" << endl;
-    // TO DO (Etape 9)
+    int index = getIndexProfessorSelection() ;
+    if (index == -1 )
+    {
+        dialogError("Wrong Index","pas de prof selectionne");
+        return;
+    }
+    auto &Timetable = Timetable::getInstance();
+    Timetable.deleteProfessorByIndex(index);
+    MiseAJourTableProfesseur(Timetable);
 
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_pushButtonSupprimerGroupe_clicked() {
     cout << "Clic sur bouton Supprimer Groupe" << endl;
-    // TO DO (Etape 9)
+    list<int> index = getIndexesGroupsSelection();
+    if (index.empty())
+    {
+        dialogError("wrong index", "Pas de prof selectionne");
+        return;
+    }
+    index.sort(greater<int>());
+    auto &Timetable = Timetable::getInstance();
+    for (auto i = index.cbegin(); i != index.cend(); i++)
+    {
+        Timetable.deleteGroupByIndex(*i);
+    }
+    MiseAJourTableGroup(Timetable);
 
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_pushButtonSupprimerLocal_clicked() {
     cout << "Clic sur bouton Supprimer Local" << endl;
-    // TO DO (Etape 9)
-
+    int index = getIndexClassroomSelection();
+    if (index == -1)
+    {
+        dialogError("Wrong index", "Pas de local selectionne");
+        return;
+    }
+    cout << "Index cliquer : " << index;
+    auto &Timetable = Timetable::getInstance();
+    Timetable.deleteClassroomByIndex(index);
+    MiseAJourTableClassroom(Timetable);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -572,25 +616,32 @@ void ApplicHoraireWindow::on_actionEnregistrer_triggered()
 
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////// ///////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_actionSupprimerProfesseur_triggered() {
     cout << "Clic sur Menu Supprimer --> Item Professeur" << endl;
-    // TO DO (Etape 9)
-
+    int id = dialogInputInt("Suppression professeur", "Inserer id prof");
+    auto &Timetable = Timetable::getInstance();
+    Timetable.deleteProfessorById(id);
+    MiseAJourTableProfesseur(Timetable);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_actionSupprimerGroupe_triggered() {
     cout << "Clic sur Menu Supprimer --> Item Groupe" << endl;
-    // TO DO (Etape 9)
+    int id = dialogInputInt("Suppression groupe", "Inserer id groupe");
+    auto &Timetable = Timetable::getInstance();
+    Timetable.deleteGroupById(id);
+    MiseAJourTableGroup(Timetable);
 
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_actionSupprimerLocal_triggered() {
     cout << "Clic sur Menu Supprimer --> Item Local" << endl;
-    // TO DO (Etape 9)
-
+    int id = dialogInputInt("Suppression local", "Inserer local");
+    auto &Timetable = Timetable::getInstance();
+    Timetable.deleteClassroomById(id);
+    MiseAJourTableClassroom(Timetable);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -647,4 +698,49 @@ void ApplicHoraireWindow::on_actionExporterLocal_triggered()
     cout << "Clic sur Menu Exporter horaire --> Item Local" << endl;
     // TO DO (Etape 12)
 
+}
+
+void ApplicHoraireWindow::MiseAJourTableProfesseur(Timetable &x)
+{
+    bool c = 1;
+    int i = 0;
+    clearTableProfessors();
+
+    do
+    {
+        string tuple = x.getProfessorTupleByIndex(i);
+        i++;
+        if (tuple.empty()) c = 0;
+        addTupleTableProfessors(tuple); // Ajoute le tuple à la table
+    } while (c);
+}
+
+void ApplicHoraireWindow::MiseAJourTableGroup(Timetable &x)
+{
+    int i = 0;
+    clearTableGroups();
+
+    while (true)
+    {
+        cout<< endl<<"erreur maj"<<endl;
+        string tuple = x.getGroupTupleByIndex(i);
+        if (tuple.empty()) break;
+
+        addTupleTableGroups(tuple);
+        i++;
+    };
+}
+
+void ApplicHoraireWindow::MiseAJourTableClassroom(Timetable &x)
+{
+    clearTableClassrooms();
+
+    for (int i = 0;;i++)
+    {
+        // cout<< endl<<"erreur maj local"<<endl;
+        string tuple = x.getClassroomTupleByIndex(i);
+        cout<<tuple<<endl;
+        if (tuple.empty()) break;
+        addTupleTableClassrooms(tuple);
+    }
 }

@@ -2,7 +2,7 @@
 
 Group::Group() : Schedulable()
 {
-	setName("Default");
+	setName("");
 }
 
 Group::Group(int id, string n) : Schedulable(id)

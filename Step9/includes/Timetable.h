@@ -43,6 +43,10 @@ public:
     void deleteGroupById(int id);
 
     static Timetable &getInstance();
+
+    string getProfessorTupleByIndex(int);
+    string getGroupTupleByIndex(int);
+    string getClassroomTupleByIndex(int);
 };
 
 #endif

@@ -2,7 +2,7 @@
 
 Classroom::Classroom() : Schedulable()
 {
-    setName("default");
+    setName("");
     setSeatingCapacity(0);
 };
 
@@ -29,7 +29,7 @@ string Classroom::getName() const
 {
     return this->name;
 }
-
+   
 ostream &operator<<(ostream &s, const Classroom &c)
 {
     s << "<Classroom>" << endl;

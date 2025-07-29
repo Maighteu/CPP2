@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <string>
 #include <list>
+#include "Timetable.h"
 using namespace std;
 
 QT_BEGIN_NAMESPACE
@@ -70,6 +71,10 @@ public:
     string dialogInputFileForLoad(const string& question);
     string dialogInputFileForSave(const string& question);
 
+    void MiseAJourTableClassroom(Timetable &x);
+    void MiseAJourTableGroup(Timetable &x);
+    void MiseAJourTableProfesseur(Timetable &x);
+    
 private slots:
     void on_pushButtonAjouterProfesseur_clicked();
     void on_pushButtonAjouterGroupe_clicked();

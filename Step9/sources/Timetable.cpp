@@ -29,14 +29,22 @@ void Timetable::displayClassrooms() const
 
 Classroom Timetable::findClassroomByIndex(int index) const
 {
-	auto c = classrooms.cbegin();
-	if(index < 0 || index >= classrooms.size())
-	{
-		cout << "Index out of range" << endl;
-    	return Classroom();
+    auto it = classrooms.cbegin();
+    int i = 0;
+
+    while (it != classrooms.cend() && i < index)
+    {
+        it++;
+        i++;
     }
-    std::advance(c, index);
-    return *c;
+
+    if (it != classrooms.cend())
+        return *it;
+    else
+    {
+        // cout << "Index hors limites" << endl;
+        return Classroom(); // Retourne un objet Classroom vide ou un autre objet par défaut
+    }
 }
 
 Classroom Timetable::findClassroomById(int id) const
@@ -150,6 +158,7 @@ void Timetable::deleteProfessorById(int id)
 int Timetable::addGroup(const string &name)
 {
     groups.insert(Group(Schedulable::currentId, name));
+
     Schedulable::currentId++;
     return 1;
 }
@@ -157,19 +166,19 @@ int Timetable::addGroup(const string &name)
 void Timetable::displayGroups() const
 {
     for (auto it = groups.cbegin(); it != groups.cend(); it++)
-    {                                                                            // cbegin = debutde la liste groups (constant);
-        cout << "Id:" << it->getId() << it->toString()  << endl; // cend = fin de la liste groups (constant)
+    {                                                           
+        cout << "Id:" << it->getId() << it->toString()  << endl;
     }
 }
 
 Group Timetable::findGroupByIndex(int index) const
 {
-	auto c = groups.cbegin();
-	if(index < 0 || index >= groups.size())
+    if (index < 0 || index >= static_cast<int>(groups.size()))
 	{
-		cout << "Index out of range" << endl;
+		cout << " group Index out of range" << endl;
     	return Group();
     }
+    auto c = groups.cbegin();
     std::advance(c, index);
     return *c;
 }
@@ -217,4 +226,35 @@ void Timetable::deleteGroupById(int id)
 Timetable &Timetable::getInstance()
 {
     return instance;
+}
+
+string Timetable::getProfessorTupleByIndex(int index)
+{
+    Professor p = findProfessorByIndex(index);
+    if(p.getFirstName().empty() && p.getLastName().empty())
+        return "";
+
+    return p.tuple();
+}
+
+
+string Timetable::getGroupTupleByIndex(int index)
+{
+
+    Group g = findGroupByIndex(index);
+    if(g.getName().empty())
+        return "";
+
+    return g.tuple();
+}
+
+
+string Timetable::getClassroomTupleByIndex(int index)
+{
+
+    Classroom c = findClassroomByIndex(index);
+    if(c.getName().empty() && c.getSeatingCapacity() == 0)
+        return "";
+
+    return c.tuple();
 }

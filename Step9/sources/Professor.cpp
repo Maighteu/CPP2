@@ -2,8 +2,8 @@
 
 Professor::Professor() : Schedulable()
 {
-	setLastName("default LN");
-	setFirstName("default FN");
+	setLastName("");
+	setFirstName("");
 }
 
 
