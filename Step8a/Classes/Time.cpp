@@ -201,25 +201,31 @@ bool Time::operator>(const Time& i) const
 
 ostream& operator<<(ostream& s,const Time& i)
 {
-	s<<i.getHour()<<"H"<<i.getMinute();
+	s<<"<Time>"<<endl; //endl place un \n à la fin (ce qui permet au getline de savoir ou se stop)
+	s<<"<hour>"<<endl;
+	s<<i.getHour()<<endl;
+	s<<"</hour>"<<endl;
+	s<<"<minute>"<<endl;
+	s << i.getMinute() << endl;
+  s << "</minute>" << endl;
+  s << "</Time>";
 	return s;
 }
-
 istream& operator>>(istream& s, Time& i)
-  {
-  	string c, temph, tempm;
-    int h,m;
+{
+  string line;
 
-    cout<<endl<<"inserer heure au format xxhxx: ";
-    s >> c;
-    temph = c.substr(0,2);
-    h = stoi(temph);
-    tempm = c.substr(3,2);
-    m = stoi(tempm);
-
-  	i.setHour(h);
- 	i.setMinute(m);
-    return s;
+	getline(s, line);
+	getline(s, line);
+	getline(s, line);
+	i.setHour(stoi(line));
+	getline(s, line);
+	getline(s, line);
+	getline(s, line);
+	i.setMinute(stoi(line));
+	getline(s, line);
+	getline(s, line);
+	return s;
 }
 
 
@@ -266,5 +272,11 @@ Time Time::operator--()
 	if (M < 0) throw TimeException(TimeException::OVERFLOW, "Less than 00:00");
  	(*this)= (*this) -30;
  	return (*this);
+}
+
+
+string Time::toString()
+{
+    return to_string(hour) + "h" + to_string(minute);
 }
 }
