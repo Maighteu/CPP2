@@ -2,6 +2,7 @@
 #include "Schedulable.h"
 
 Timetable Timetable::instance;
+int Timetable::code = 1;
 
 Timetable::Timetable()
 {
@@ -29,22 +30,14 @@ void Timetable::displayClassrooms() const
 
 Classroom Timetable::findClassroomByIndex(int index) const
 {
-    auto it = classrooms.cbegin();
-    int i = 0;
-
-    while (it != classrooms.cend() && i < index)
+    auto c = classrooms.cbegin();
+    if(index < 0 || index >= classrooms.size())
     {
-        it++;
-        i++;
+        cout << "Index out of range" << endl;
+        return Classroom();
     }
-
-    if (it != classrooms.cend())
-        return *it;
-    else
-    {
-        // cout << "Index hors limites" << endl;
-        return Classroom(); // Retourne un objet Classroom vide ou un autre objet par défaut
-    }
+    std::advance(c, index);
+    return *c;
 }
 
 Classroom Timetable::findClassroomById(int id) const
@@ -59,7 +52,6 @@ Classroom Timetable::findClassroomById(int id) const
     if (c != classrooms.cend())
         return *c;
 
-    cout << "id not found" << endl;
     return Classroom();
 }
 
@@ -193,7 +185,10 @@ Group Timetable::findGroupById(int id) const
     }
 
     if (c != groups.cend())
+    {
+        cout<<"id found"<<endl;
         return *c;
+    }
 
     cout << "Id not found" << endl;
     return Group();
@@ -263,7 +258,6 @@ string Timetable::getClassroomTupleByIndex(int index)
 
 int Timetable::save(const string &timetableName)
 {
-    Schedulable::currentId = 1;
     int i;
     string Nom;
     const char* NomFichier;
@@ -278,6 +272,7 @@ int Timetable::save(const string &timetableName)
         return -1;
     }
     write(fd, &Schedulable::currentId, sizeof(Schedulable::currentId));
+    write(fd, &Event::currentCode, sizeof(Event::currentCode));
     close(fd);
 
 
@@ -288,13 +283,9 @@ int Timetable::save(const string &timetableName)
     auto c = classrooms.cbegin();
     i = 0;
 
-    while(c != classrooms.cend())
-    {
-        Classroom t = findClassroomByIndex(i);
-        FC->write(t);
-        c++;
-        i++;
-    }
+    for (const auto& clas : classrooms) {
+    FC->write(clas);
+}
     delete FC;
 
 
@@ -305,13 +296,9 @@ int Timetable::save(const string &timetableName)
     auto g = groups.cbegin();
     i = 0;
 
-    while(g != groups.cend())
-    {
-        Group t = findGroupByIndex(i);
-        FG->write(t);
-        g++;
-        i++;
-    }
+    for (const auto& group : groups) {
+    FG->write(group);
+}
     delete FG;
 
 
@@ -321,15 +308,22 @@ int Timetable::save(const string &timetableName)
     auto p = professors.cbegin();
     i = 0;
 
-    while(p != professors.cend())
-    {
-        Professor t = findProfessorByIndex(i);
-        FP->write(t);
-        p++;
-        i++;
+    for (const auto& prof : professors) {
+    FP->write(prof);
     }
     delete FP;
-    Schedulable::currentId = 1;
+
+
+    Nom = timetableName + "_course.xml";
+    XmlFileSerializer<Course> *FCO = new XmlFileSerializer<Course>(Nom, XmlFileSerializer<Course>::WRITE, "Courses");
+
+    auto co = courses.begin();
+    i = 0;
+
+    for (const auto& cours : courses) {
+    FCO->write(cours);
+}
+    delete FCO;
     return 1;
 }
 
@@ -337,12 +331,11 @@ int Timetable::save(const string &timetableName)
 
 int Timetable::load(const string &timetableName)
 {
-    Schedulable::currentId = 1;
 
     VideCont();
     string Nom;
     int i;
-    
+
     const char* NomFichier;
     int fd;
 
@@ -362,7 +355,12 @@ int Timetable::load(const string &timetableName)
         close(fd);
         return -1;
     }
-    cout << "Id: " << Schedulable::currentId << endl;
+    if (read(fd, &Event::currentCode, sizeof(Event::currentCode)) < 1)
+    {
+        cerr << "Error code < 1" << endl;
+        close(fd);
+        return -1;
+    }
     close(fd);
 
 
@@ -391,7 +389,7 @@ int Timetable::load(const string &timetableName)
             try
             {
                 Classroom val = FC->read();
-                addClassroom(val.getName(),val.getSeatingCapacity());
+                LoadaddClassroom(val);
             }
             catch (const XmlFileSerializerException &e)
             {
@@ -433,7 +431,7 @@ int Timetable::load(const string &timetableName)
             try
             {
                 Group val = FG->read();
-                addGroup(val.getName());
+                LoadaddGroup(val);
             }
             catch (const XmlFileSerializerException &e)
             {
@@ -469,18 +467,17 @@ int Timetable::load(const string &timetableName)
 
     if (FP != nullptr)
     {
-        bool end = false;
-        while (!end)
+        while (true)
         {
             try
             {
                 Professor val = FP->read();
-                addProfessor(val.getLastName(),val.getFirstName());
+                LoadaddProfessor(val);
             }
             catch (const XmlFileSerializerException &e)
             {
                 if (e.getCode() == XmlFileSerializerException::END_OF_FILE)
-                    end = true;
+                    break;
                 else
                 {
                     cout << e.getMessage() << " code: " << e.getCode() << endl;
@@ -489,13 +486,57 @@ int Timetable::load(const string &timetableName)
             }
         }
         delete FP;
+
+
+    Nom = timetableName + "_course.xml";
+    XmlFileSerializer<Course> *FCO = nullptr;
+    try
+    {
+        FCO = new XmlFileSerializer<Course>(Nom, XmlFileSerializer<Course>::READ);
+        cout << "Filename: " << FCO->getFilename() << endl;
+        cout << "Collection name: " << FCO->getCollectionName() << endl;
+        cout << "Readable: " << FCO->isReadable() << endl;
+        cout << "Writable: " << FCO->isWritable() << endl
+             << endl;
+
     }
-    Schedulable::currentId = 1;
+
+    catch (const XmlFileSerializerException &e)
+    {
+        cout<< e.getMessage() << " code: " << e.getCode()<< endl;
+    }
+
+    if (FCO != nullptr)
+    {
+        while (true)
+        {
+            try
+            {
+
+                Course val = FCO->read();
+
+                courses.push_back(val);
+            }
+            catch (const XmlFileSerializerException &e)
+            {
+                if (e.getCode() == XmlFileSerializerException::END_OF_FILE)
+                    break;
+                else
+                {
+                    cout  << e.getMessage() << endl;
+                    break;
+                }
+            }
+        }
+
+        delete FCO;
+    }
+    }
     return 1;
 }
+
 void Timetable::VideCont()
 {
-       Schedulable::currentId = 1;
     for (auto c = classrooms.begin(); c != classrooms.end();)
     {
         c = classrooms.erase(c); 
@@ -509,6 +550,196 @@ void Timetable::VideCont()
     {
         p = professors.erase(p);
     }
+        for (auto C = courses.begin(); C != courses.end();)
+    {
+        C = courses.erase(C);
+    }
     Schedulable::currentId = 1;
+    Event::currentCode = 1;
     return;
+}
+
+bool Timetable::isProfessorAvailable(int i, const Timing &t)
+{
+    bool r;
+
+    for (auto c = courses.begin(); c != courses.end(); c++)//lis cours un a un
+    {
+        if (c->getProfessorId() == i)
+        {
+            r = c->getTiming().intersect(t);
+            if (r == true)
+                return false;
+        }
+    }
+    return true;
+}
+
+bool Timetable::isGroupAvailable(int i, const Timing &t)
+{
+    bool r;
+
+    for (auto c = courses.begin(); c != courses.end(); c++)
+    {
+        set<int> G = c->getGroupsId();
+
+        for (auto g = G.cbegin(); g != G.cend(); g++)
+        {
+            if (*g == i)
+            {
+                r = c->getTiming().intersect(t);
+                if (r == true)
+                    return false;
+            }
+        }
+    }
+    return true;
+}
+
+bool Timetable::isClassroomAvailable(int i, const Timing &t)
+{
+    bool r;
+
+    for (auto c = courses.begin(); c != courses.end(); c++)
+    {
+        if (c->getClassroomId() == i)
+        {
+            r = c->getTiming().intersect(t);
+            if (r == true)
+                return false;
+        }
+    }
+    return true;
+}
+
+void Timetable::schedule(Course &c, const Timing &t)
+{
+
+    int ip = c.getProfessorId();
+    int ic = c.getClassroomId();
+    set<int> ig = c.getGroupsId();
+
+    for (auto i = ig.cbegin(); i != ig.cend(); i++)
+    {
+        if(!(isProfessorAvailable(ip, t)))
+            throw TimingException(TimingException::PROFESSOR_NOT_AVAIBLE, "Le professeur n'est pas disponible");
+
+        if(!(isClassroomAvailable(ic, t)))
+            throw TimingException(TimingException::CLASSROOM_NOT_AVAIBLE, "Le classroom n'est pas disponible");
+
+        if(!(isGroupAvailable((*i), t)))
+            throw TimingException(TimingException::GROUP_NOT_AVAIBLE, "Le groups n'est pas disponible");
+
+        cout << "Professor: " << isProfessorAvailable(ip, t) << endl;
+        cout << "Classroom: " << isClassroomAvailable(ic, t) << endl;
+        cout << "Group: " << isGroupAvailable((*i), t) << endl;
+
+    }
+
+    c.setCode(code);
+    c.setTiming(t);
+    courses.push_back(c);
+
+    code++;
+}
+
+string Timetable::tuple(const Course &c)
+{
+    Timing t;
+    t = c.getTiming();
+    Classroom classroom = findClassroomById(c.getClassroomId());
+    Professor professor = findProfessorById(c.getProfessorId());
+
+    string s = to_string(c.getCode()) + ";" + t.getDay() + ";" + t.getStart().toString() + ";" + t.getDuration().toString() + ";" + classroom.getName() + ";" + c.getTitle() + ";" + professor.getLastName() + " " + professor.getFirstName() + ";";
+    cout<<"tuple "<<s<<endl;
+    set<int> gi = c.getGroupsId();
+
+    string g;
+    for (auto it = gi.cbegin(); it != gi.cend(); it++)
+    {
+        Group group = findGroupById(*it);
+        g += group.toString();
+        if (next(it) != gi.cend()) g += ", ";
+    }
+    s += g;
+    return s;
+}
+
+Course Timetable::findCourseByIndex(int index)
+{
+
+    auto c = courses.begin();
+
+    int i = 0;
+    while (c != courses.end() && i < index)
+    {
+        c++;
+        i++;
+    }
+    if (c != courses.end())
+    {
+        return *c;
+    }
+    else
+    {
+        return Course();
+    }
+}
+string Timetable::getCourseTupleByIndex(int index)
+{
+    Course classes = findCourseByIndex(index); //! C LUI
+    if (classes.getProfessorId() != 0)
+    {
+        string tupleC = tuple(classes);
+        return tupleC;
+    }
+    return "";
+}
+
+//
+
+Course Timetable::findCourseByCode(int code) const
+{
+    auto it = courses.begin();
+
+    while (it != courses.end() && it->getCode() != code)
+    {
+        it++;
+    }
+
+    if (it != courses.end())
+        return *it;
+    return Course();
+}
+
+
+int Timetable::deleteCourseByCode(int Code)
+{
+
+    Course deleted = findCourseByCode(Code);
+
+    auto it = find(courses.begin(),courses.end(),deleted);
+
+    if (it != courses.end())
+    {
+        courses.erase(it);
+        return 1;
+    }
+    return 0;
+}
+
+int Timetable::LoadaddClassroom(const Classroom& c)
+{
+    classrooms.insert(c);
+    return 1;
+}
+int Timetable::LoadaddProfessor(const Professor& p)
+{
+    professors.insert(p);
+    return 1;
+}
+int Timetable::LoadaddGroup(const Group& g)
+{
+    groups.insert(g);
+    return 1;
 }

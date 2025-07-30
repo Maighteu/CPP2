@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Classrooms>
+<Classroom>
+<id>
+6
+</id>
+<name>
+an
+</name>
+<seatingCapacity>
+83
+</seatingCapacity>
+</Classroom>
+<Classroom>
+<id>
+7
+</id>
+<name>
+ax
+</name>
+<seatingCapacity>
+86
+</seatingCapacity>
+</Classroom>
+</Classrooms>

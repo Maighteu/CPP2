@@ -571,7 +571,75 @@ void ApplicHoraireWindow::on_pushButtonSupprimerLocal_clicked() {
 void ApplicHoraireWindow::on_pushButtonPlanifier_clicked()
 {
     cout << "Clic sur bouton Planifier" << endl;
-    // TO DO (Etape 11)
+    auto &Timetable = Timetable::getInstance();
+
+    Professor p = Timetable.findProfessorByIndex(getIndexProfessorSelection());
+    Classroom c = Timetable.findClassroomByIndex(getIndexClassroomSelection());
+
+    int idp = p.getId();
+    int idc = c.getId();
+
+    list<int> indexG = getIndexesGroupsSelection();
+    set<int> groupsSet;
+
+    for (auto i = indexG.begin(); i != indexG.end(); i++)
+    {
+        Group p = Timetable.findGroupByIndex(*i);
+        if (p.getId() != -1)
+        {
+            groupsSet.insert(p.getId()); // Ajout du groupe dans le set
+        }
+    }
+
+    if ((idp == -1) || (idc == -1) || groupsSet.empty())
+    {
+        dialogError("missing choice", "Select teacher classroom and group");
+        return;
+    }
+
+    string day = getDaySelection();
+    int startH = getHourStart();
+    int startM = getMinuteStart();
+    int dur = getDuration();
+    string title = getTitle();
+if (day.empty() || startH < 0 || startM < 0 || dur <= 0 || title.empty())
+{
+    dialogMessage("Champs vide", "Inserer toutes les données");
+    return;
+}
+
+
+    const char *titles = title.c_str();
+
+    try
+    {
+        Timing t(day, Time(startH, startM), Time(dur));
+        Course cls(Timetable::code, titles, idp, idc, groupsSet); // Passer le set<int> de groupes
+
+        Timetable.schedule(cls, t);
+
+        MiseAJourTableCourse(Timetable);
+        dialogMessage("Ajout avec succès", "Le cours a été ajouté avec succès");
+    }
+    catch (TimingException &timingExcep)
+    {
+        cout <<"message d'erreur" << timingExcep.getMessage() << "\nCode: " << timingExcep.getCode() << endl;
+        switch(timingExcep.getCode())
+        {
+            case 9:
+                dialogError("Professeur pas disponible", "Le Professeur demandé n'est pas disponible a cette horaire");
+            break;
+
+            case 10:
+                dialogError("Classroom pas disponible", "Le Classroom demandé n'est pas disponible a cette horaire");
+            break;
+
+            case 11:
+                dialogError("Group pas disponible", "Le Group demandé n'est pas disponible a cette horaire");
+        }
+        
+    }
+
 
 }
 
@@ -605,6 +673,7 @@ void ApplicHoraireWindow::on_actionOuvrir_triggered()
         MiseAJourTableClassroom(Timetable);
         MiseAJourTableGroup(Timetable);
         MiseAJourTableProfesseur(Timetable);
+        MiseAJourTableCourse(Timetable); 
         return;
     }
     dialogError("File not opening", "Echec de l'ouverture");
@@ -621,6 +690,7 @@ void ApplicHoraireWindow::on_actionNouveau_triggered()
     MiseAJourTableClassroom(Timetable);
     MiseAJourTableGroup(Timetable);
     MiseAJourTableProfesseur(Timetable);
+    MiseAJourTableCourse(Timetable); 
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -669,8 +739,15 @@ void ApplicHoraireWindow::on_actionSupprimerLocal_triggered() {
 void ApplicHoraireWindow::on_actionSupprimerCours_triggered()
 {
     cout << "Clic sur Menu Supprimer --> Item Cours" << endl;
-    // TO DO (Etape 11)
+    int code = dialogInputInt("Delete course", "inserer code du cours");
+     auto &Timetable = Timetable::getInstance();
 
+    if (Timetable.deleteCourseByCode(code))  
+    {
+         MiseAJourTableCourse(Timetable); 
+         return;
+    }
+     dialogError("course not found", "cours non trouvé");
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -732,7 +809,7 @@ void ApplicHoraireWindow::MiseAJourTableProfesseur(Timetable &x)
         string tuple = x.getProfessorTupleByIndex(i);
         i++;
         if (tuple.empty()) c = 0;
-        addTupleTableProfessors(tuple); // Ajoute le tuple à la table
+        addTupleTableProfessors(tuple);
     } while (c);
 }
 
@@ -743,7 +820,6 @@ void ApplicHoraireWindow::MiseAJourTableGroup(Timetable &x)
 
     while (true)
     {
-        cout<< endl<<"erreur maj"<<endl;
         string tuple = x.getGroupTupleByIndex(i);
         if (tuple.empty()) break;
 
@@ -758,10 +834,28 @@ void ApplicHoraireWindow::MiseAJourTableClassroom(Timetable &x)
 
     for (int i = 0;;i++)
     {
-        // cout<< endl<<"erreur maj local"<<endl;
         string tuple = x.getClassroomTupleByIndex(i);
-        cout<<tuple<<endl;
+        // cout<<tuple<<endl;
         if (tuple.empty()) break;
         addTupleTableClassrooms(tuple);
     }
+}
+void ApplicHoraireWindow::MiseAJourTableCourse(Timetable &t)
+{
+    int i = 0;
+    Course cls();
+    string tupleG;
+
+    clearTableCourses();
+    do
+    {
+        tupleG = t.getCourseTupleByIndex(i);
+        i++;
+        if(tupleG.empty())
+            break;
+        cout <<"maj table course"<< tupleG << endl;
+        addTupleTableCourses(tupleG);
+
+    } while (true);
+    return;
 }
