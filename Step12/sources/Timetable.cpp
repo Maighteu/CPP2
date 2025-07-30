@@ -512,7 +512,6 @@ int Timetable::load(const string &timetableName)
         {
             try
             {
-
                 Course val = FCO->read();
 
                 courses.push_back(val);
@@ -532,6 +531,8 @@ int Timetable::load(const string &timetableName)
         delete FCO;
     }
     }
+    cout<<endl<<endl<<"current id"<<Schedulable::currentId<<endl<<endl;
+    cout<<endl<<endl<<"id course"<<Event::currentCode<<endl<<endl;
     return 1;
 }
 
@@ -687,10 +688,11 @@ Course Timetable::findCourseByIndex(int index)
 }
 string Timetable::getCourseTupleByIndex(int index)
 {
-    Course classes = findCourseByIndex(index); //! C LUI
+    Course classes = findCourseByIndex(index);
     if (classes.getProfessorId() != 0)
     {
         string tupleC = tuple(classes);
+        if (Event::currentCode < classes.getCode()) Event::currentCode = classes.getCode();
         return tupleC;
     }
     return "";

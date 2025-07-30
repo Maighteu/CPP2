@@ -108,6 +108,9 @@ void Event::setTiming(const Timing& tim)
    getline(s, line);
    getline(s, line);
    x.setCode(stoi(line));
+   
+   if (Event::currentCode < (stoi(line))) Event::currentCode = (stoi(line));
+
    getline(s, line); 
    getline(s, line);
    getline(s, line);
