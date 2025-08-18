@@ -46,6 +46,7 @@ ostream &operator<<(ostream &s, const Classroom &c)
 
     return s;
 }
+
 istream &operator>>(istream &s, Classroom &i)
 {
     string line;

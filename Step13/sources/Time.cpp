@@ -276,7 +276,7 @@ string Time::toString()
 { 
 	string SH, SM;
 	if (minute<10)
-    	SM = to_string(minute) + "0";
+    	SM = "0" + to_string(minute) ;
 	else
     	SM= to_string(minute);
     if (hour<10)

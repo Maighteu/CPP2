@@ -621,7 +621,6 @@ string Timetable::tuple(const Course &c)
     Professor professor = findProfessorById(c.getProfessorId());
 
     string s = to_string(c.getCode()) + ";" + t.getDay() + ";" + t.getStart().toString() + ";" + t.getDuration().toString() + ";" + classroom.getName() + ";" + c.getTitle() + ";" + professor.getLastName() + " " + professor.getFirstName() + ";";
-    cout<<"tuple "<<s<<endl;
     set<int> gi = c.getGroupsId();
 
     string g;
@@ -936,46 +935,24 @@ list<Course> Timetable::selectionner(bool dayCheck, string dayChecked, bool grou
         }
     }
 
-    int compteurGrpTotal;
-    int compteurGrp;
-    int i = 0;
     if (groupCheck && groupChecked != -1)
     {
-
         auto it = CourseCpy.begin();
-        Group gf = findGroupByIndex(groupChecked);
+        Group gf = findGroupByIndex(groupChecked); 
 
         while (it != CourseCpy.end())
         {
-            compteurGrpTotal = 0;
-            compteurGrp = 0;
+            set<int> setGtemp = it->getGroupsId(); 
 
-            set<int> setGtemp = it->getGroupsId();
-
-            for (auto itSetgT = setGtemp.begin(); itSetgT != setGtemp.end(); itSetgT++)
-            {
-                compteurGrpTotal++;
-            }
-
-            for (auto itSetgT = setGtemp.begin(); itSetgT != setGtemp.end(); itSetgT++)
-            {
-                Group gtemp = findGroupById(*itSetgT);
-
-                if (gf.getId() != gtemp.getId())
-                {
-                    compteurGrp++;
-                }
-            }
-
-            i++;
-            if (compteurGrp == compteurGrpTotal)
+            if (setGtemp.find(gf.getId()) == setGtemp.end())
             {
                 it = CourseCpy.erase(it);
             }
             else
+            {
                 ++it;
         }
     }
-
+    }
     return CourseCpy;
 }

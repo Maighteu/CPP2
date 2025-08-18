@@ -30,7 +30,7 @@ XmlFileSerializer<T>::XmlFileSerializer(const string &fn, char m, const string &
         if (!file.is_open()) throw XmlFileSerializerException(XmlFileSerializerException::FILE_NOT_FOUND, "Unknown file");
         getline(file, ligne);
         getline(file, ligne);
-        ligne = ligne.substr(1, ligne.length() - 2); // Supprime les caractères <
+        ligne = ligne.substr(1, ligne.length() - 2);
         collectionName = ligne;
     }
 }
