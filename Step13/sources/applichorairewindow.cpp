@@ -561,7 +561,6 @@ void ApplicHoraireWindow::on_pushButtonSupprimerLocal_clicked() {
         dialogError("Wrong index", "Pas de local selectionne");
         return;
     }
-    cout << "Index cliquer : " << index;
     auto &Timetable = Timetable::getInstance();
     Timetable.deleteClassroomByIndex(index);
     MiseAJourTableClassroom(Timetable);
@@ -587,7 +586,7 @@ void ApplicHoraireWindow::on_pushButtonPlanifier_clicked()
         Group p = Timetable.findGroupByIndex(*i);
         if (p.getId() != -1)
         {
-            groupsSet.insert(p.getId());
+            groupsSet.insert(p.getId()); // Ajout du groupe dans le set
         }
     }
 
@@ -647,22 +646,23 @@ if (day.empty() || startH < 0 || startM < 0 || dur <= 0 || title.empty())
 void ApplicHoraireWindow::on_pushButtonSelectionner_clicked()
 {
     cout << "Clic sur bouton Selectionner" << endl;
-        string TupleG;
+    string TupleG;
      int Group1;
+
     auto &Timetable = Timetable::getInstance();
     string daySelect = getDaySelection();
     list<int> groupSelect = getIndexesGroupsSelection();
     int profSelect = getIndexProfessorSelection();
     int classSelect = getIndexClassroomSelection();
 
-    if(!groupSelect.empty())
+    if(!groupSelect.empty() || !isGroupChecked())
     {
         auto it = groupSelect.begin();
         Group1 = *it;
     }
     else
     {   
-         Group1 = -1;
+         dialogError("Group selection","no group selected");
     }
 
 
@@ -675,11 +675,9 @@ void ApplicHoraireWindow::on_pushButtonSelectionner_clicked()
     for(auto it = NvxCourse.begin(); it != NvxCourse.end(); it++)
         {
             TupleG = Timetable.tuple(*it);
-            //cout << TupleG << endl;
             addTupleTableCourses(TupleG);
         }
     
-
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -769,7 +767,7 @@ void ApplicHoraireWindow::on_actionSupprimerLocal_triggered() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ApplicHoraireWindow::on_actionSupprimerCours_triggered()
 {
-    cout << "Clic sur Menu Supprimer --> Item Cours" << endl;
+    cout  << "Clic sur Menu Supprimer --> Item Cours" << endl;
     int code = dialogInputInt("Delete course", "inserer code du cours");
      auto &Timetable = Timetable::getInstance();
 
@@ -876,7 +874,6 @@ void ApplicHoraireWindow::MiseAJourTableClassroom(Timetable &x)
     for (int i = 0;;i++)
     {
         string tuple = x.getClassroomTupleByIndex(i);
-        // cout<<tuple<<endl;
         if (tuple.empty()) break;
         addTupleTableClassrooms(tuple);
     }
@@ -894,7 +891,6 @@ void ApplicHoraireWindow::MiseAJourTableCourse(Timetable &t)
         i++;
         if(tupleG.empty())
             break;
-        cout <<"maj table course"<< tupleG << endl;
         addTupleTableCourses(tupleG);
 
     } while (true);

@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/student/Documents/CPP/Step13/sources/Time.cpp
+Time.h
+/home/student/Documents/CPP/Step13/sources/Time.h
+TimeException.h
+/home/student/Documents/CPP/Step13/sources/TimeException.h
+
+includes/Exception.h
+stdlib.h
+-
+iostream
+-
+string.h
+-
+stdio.h
+-
+
+includes/Time.h
+stdlib.h
+-
+iostream
+-
+string.h
+-
+stdio.h
+-
+
+includes/TimeException.h
+Exception.h
+includes/Exception.h
+
